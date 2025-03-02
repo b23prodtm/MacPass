@@ -102,7 +102,8 @@
       *error = [NSError errorInDomain:MPAutotypeErrorDomain withCode:MPErrorAutotypeIsMissingScreenRecordingPermissions description:NSLocalizedString(@"ERROR_NO_PERMISSION_TO_RECORD_SCREEN", "Error description for missing screen recording permissions")];
     }
     return canRecordScreen;
-#endif  return YES;
+#endif
+  return YES;
 }
 
 - (BOOL)hasAccessibiltyPermissions:(NSError *__autoreleasing*)error {
@@ -113,7 +114,8 @@
     if(!isTrusted && error) {
       *error = [NSError errorInDomain:MPAutotypeErrorDomain withCode:MPErrorAutotypeIsMissingAccessibiltyPermissions description:NSLocalizedString(@"ERROR_NO_ACCESSIBILITY_PERMISSIONS", "Error description for missing accessibility permissions")];
     }
-#endif  return isTrusted;
+#endif
+  return isTrusted;
 }
 
 - (void)openAccessibiltyPreferences {

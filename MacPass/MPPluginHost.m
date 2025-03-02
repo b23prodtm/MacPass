@@ -36,7 +36,7 @@
 
 #import "NSError+Messages.h"
 
-#import "KeePassKit/KeePassKit.h"
+#import <KeePassKit/KeePassKit.h>
 
 
 NSString *const MPPluginHostWillLoadPluginNotification = @"com.hicknhack.macpass.MPPluginHostWillLoadPlugin";
