@@ -68,7 +68,7 @@
    Solution is heavily inspired by Craig Hockenberry's
    https://stackoverflow.com/questions/56597221/detecting-screen-recording-settings-on-macos-catalina/58985069#58985069
    */
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
     CFArrayRef windowList = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
     NSUInteger numberOfWindows = CFArrayGetCount(windowList);
     BOOL canRecordScreen = NO;

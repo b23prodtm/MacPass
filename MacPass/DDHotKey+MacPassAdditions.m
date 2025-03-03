@@ -29,7 +29,8 @@
 @implementation DDHotKey (MPKeydata)
 
 + (NSData *)hotKeyDataWithKeyCode:(unsigned short)keyCode modifierFlags:(NSUInteger)flags {
-  NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:YES];
+  NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] init];
+  archiver.requiresSecureCoding = YES;
   [archiver encodeInt:keyCode forKey:NSStringFromSelector(@selector(keyCode))];
   [archiver encodeInteger:flags forKey:NSStringFromSelector(@selector(modifierFlags))];
   return [archiver.encodedData copy];
@@ -73,7 +74,12 @@
   }
   
   NSError *error;
+#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
+  NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+  unarchiver.requiresSecureCoding = YES;
+#else
   NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+#endif
   if(error) {
     NSLog(@"Error while trying to decode DDHotKey %@", error.localizedDescription);
     return NO;

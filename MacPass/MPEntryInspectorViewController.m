@@ -191,10 +191,12 @@ typedef NS_ENUM(NSUInteger, MPInpspectorEditorIndex) {
   
   
   self.customFieldsTableView.backgroundColor = NSColor.clearColor;
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
   self.customFieldsTableView.usesAutomaticRowHeights = YES;
-  if (@available(macOS 11.0, *)) {
+#endif
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
     self.customFieldsTableView.additionalSafeAreaInsets = NSEdgeInsetsZero;
-  }
+#endif
   [self.customFieldsTableView bind:NSContentBinding toObject:_customFieldsController withKeyPath:NSStringFromSelector(@selector(arrangedObjects)) options:nil];
   self.customFieldsTableView.delegate = _customFieldTableDelegate;
   

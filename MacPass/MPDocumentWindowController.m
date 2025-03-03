@@ -100,7 +100,7 @@ typedef void (^MPPasswordChangedBlock)(BOOL didChangePassword);
   [super windowDidLoad];
   
   self.window.delegate = self.documentWindowDelegate;
-  if (@available(macOS 11.0, *)) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
     /* let the user decide how to dipsplay the toolbar */
     BOOL useUnifiedToolbar = [NSUserDefaults.standardUserDefaults boolForKey:kMPSettingsKeyUseUnifiedToolbar];
     if(useUnifiedToolbar) {
@@ -111,7 +111,7 @@ typedef void (^MPPasswordChangedBlock)(BOOL didChangePassword);
     else {
       self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
     }
-  }
+#endif
   [self.window registerForDraggedTypes:@[NSURLPboardType]];
   
   MPDocument *document = self.document;
@@ -129,11 +129,11 @@ typedef void (^MPPasswordChangedBlock)(BOOL didChangePassword);
   self.toolbar.autosavesConfiguration = YES;
   self.toolbar.allowsUserCustomization = YES;
   /* center search in toolbar */
-  if (@available(macOS 10.14, *)) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
     self.toolbar.centeredItemIdentifier = MPToolbarItemIdentifierSearch;
-  } else {
+#else
     // to not do any magic here
-  }
+#endif
   self.toolbar.delegate = self.toolbarDelegate;
   self.window.toolbar = self.toolbar;
   self.toolbarDelegate.toolbar = self.toolbar;
@@ -687,7 +687,7 @@ typedef void (^MPPasswordChangedBlock)(BOOL didChangePassword);
     return [MPTouchBarButtonCreator touchBarButtonWithTitleAndImageAndColor:NSLocalizedString(@"TOUCHBAR_DELETE","Touchbar button label for deleting elements")
                                                                  identifier:MPTouchBarItemIdentifierDelete
                                                                       image:[MPIconHelper icon:MPIconTrash]
-                                                                      color:NSColor.systemRedColor
+                                                                      color:NSColor.redColor
                                                                      target:self
                                                                    selector:@selector(delete:)
                                                          customizationLabel:NSLocalizedString(@"TOUCHBAR_DELETE","Touchbar button label for deleting elements")];

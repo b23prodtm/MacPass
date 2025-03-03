@@ -12,6 +12,7 @@
 		486987722D74DFCA0020025A /* HNHUi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 486987702D74DFCA0020025A /* HNHUi.framework */; };
 		486987742D74DFCB0020025A /* DDHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 486987712D74DFCA0020025A /* DDHotKey.framework */; };
 		486987752D74DFCB0020025A /* DDHotKey.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 486987712D74DFCA0020025A /* DDHotKey.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4869883D2D752EBB0020025A /* KeePassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4869883C2D752EBB0020025A /* KeePassKit.framework */; };
 		488FD33A2D74C9CF00CEA188 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 488FD32F2D74C9CE00CEA188 /* README.md */; };
 		488FD33B2D74C9CF00CEA188 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 488FD3302D74C9CE00CEA188 /* LICENSE.txt */; };
 		488FD33C2D74C9CF00CEA188 /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 488FD3332D74C9CF00CEA188 /* acknowledgements.html */; };
@@ -200,7 +201,6 @@
 		4C7ABA4B17BAEC6700FF5799 /* 19_EmailTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4C7ABA4617BAEC6700FF5799 /* 19_EmailTemplate.pdf */; };
 		4C7ABA4C17BAEC6700FF5799 /* 20_MiscTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4C7ABA4717BAEC6700FF5799 /* 20_MiscTemplate.pdf */; };
 		4C7ABA4E17BAEC7000FF5799 /* addEntryTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4C7ABA4D17BAEC7000FF5799 /* addEntryTemplate.pdf */; };
-		4C7B637C1C0CB55600D7038C /* KeePassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7B63791C0CB55600D7038C /* KeePassKit.framework */; };
 		4C7B637D1C0CB55600D7038C /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7B637A1C0CB55600D7038C /* Sparkle.framework */; };
 		4C7B637F1C0CB57300D7038C /* KeePassKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4C7B63791C0CB55600D7038C /* KeePassKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4C7B63801C0CB57300D7038C /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4C7B637A1C0CB55600D7038C /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -376,6 +376,7 @@
 		4825CC961C414D58003E37E9 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		486987702D74DFCA0020025A /* HNHUi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HNHUi.framework; path = Carthage/Build/Mac/HNHUi.framework; sourceTree = "<group>"; };
 		486987712D74DFCA0020025A /* DDHotKey.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DDHotKey.framework; path = Carthage/Build/Mac/DDHotKey.framework; sourceTree = "<group>"; };
+		4869883C2D752EBB0020025A /* KeePassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeePassKit.framework; path = Carthage/Build/Mac/KeePassKit.framework; sourceTree = "<group>"; };
 		488FD32F2D74C9CE00CEA188 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		488FD3302D74C9CE00CEA188 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		488FD3332D74C9CF00CEA188 /* acknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
@@ -1230,7 +1231,7 @@
 				4C00E33B17D8FAC100F37192 /* Carbon.framework in Frameworks */,
 				4CAD748E15B88AC100104512 /* libz.dylib in Frameworks */,
 				486987722D74DFCA0020025A /* HNHUi.framework in Frameworks */,
-				4C7B637C1C0CB55600D7038C /* KeePassKit.framework in Frameworks */,
+				4869883D2D752EBB0020025A /* KeePassKit.framework in Frameworks */,
 				4CAD748C15B889B700104512 /* Security.framework in Frameworks */,
 				4CBC5DDD23C61C8900D14B92 /* TransformerKit.framework in Frameworks */,
 				4CAD45312519E99E00D0D788 /* KissXML.framework in Frameworks */,
@@ -1648,6 +1649,7 @@
 		4C77E35715B84A240093A587 = {
 			isa = PBXGroup;
 			children = (
+				4869883C2D752EBB0020025A /* KeePassKit.framework */,
 				486987702D74DFCA0020025A /* HNHUi.framework */,
 				486987712D74DFCA0020025A /* DDHotKey.framework */,
 				488FD32F2D74C9CE00CEA188 /* README.md */,

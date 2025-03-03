@@ -25,9 +25,9 @@
 #import "MPIconHelper.h"
 #import "MPAutotypeDoctor.h"
 
-#import "DDHotKeyCenter.h"
+#import <DDHotKey/DDHotKeyCenter.h>
 #import "DDHotKey+MacPassAdditions.h"
-#import "DDHotKeyTextField.h"
+#import <DDHotKey/DDHotKeyTextField.h>
 
 @interface MPIntegrationPreferencesController ()
 
