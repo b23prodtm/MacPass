@@ -21,7 +21,7 @@
 //
 
 #import "NSString+MPPrettyPasswordDisplay.h"
-#import "KeePassKit/KeePassKit.h"
+#import <KeePassKit/KeePassKit.h>
 
 @implementation NSString (MPPrettyPasswordDisplay)
 

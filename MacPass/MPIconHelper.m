@@ -28,7 +28,7 @@
 @implementation MPIconHelper
 
 + (NSImage *)icon:(MPIconType)type {
-  if (@available(macOS 11.0, *)) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
     static NSDictionary *symbols;
     if(!symbols) {
       symbols = MPIconHelper.availableSymbolNames;
@@ -42,7 +42,7 @@
       }
     }
   }
-  
+#endif
   static NSDictionary *icons;
   
   if(!icons) {
@@ -188,13 +188,13 @@
     };
   });
   
-  if(@available(macOS 11.0, *)) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 11000
     return symbolNames;
   }
-  else {
+#else
     return nil;
   }
-}
+#endif
 
 
 + (NSDictionary *)availableIconNames {

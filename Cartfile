@@ -1,4 +1,9 @@
-binary "https://sparkle-project.org/Carthage/Sparkle.json"
-github "MacPass/TransformerKit" "a8b5bb73cc327ec6798569b865c32fec5eb2289f"
-github "MacPass/KeePassKit" ~> 3.2.0
-github "mstarke/HNHUi" ~> 6.0
+#github "sparkle-project/Sparkle" ~> 1.22
+#github "MacPass/TransformerKit" "1.1.0"
+#github "MacPass/KeePassKit" ~> 3.2.0
+#github "mstarke/HNHUi" ~> 6.0
+github "b23prodtm/Sparkle" ~> 1.27.1011
+github "b23prodtm/TransformerKit" "1.1.1011"
+github "b23prodtm/KeePassKit" ~> 3.3.21011
+github "b23prodtm/HNHUi" ~> 6.0.1011
+github "b23prodtm/DDHotKey" "1.0"

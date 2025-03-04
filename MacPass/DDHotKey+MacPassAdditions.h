@@ -20,7 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-#import "DDHotKeyCenter.h"
+#import <DDHotKey/DDHotKey.h>
 
 @interface DDHotKey (MPKeydata)
 

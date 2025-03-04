@@ -68,7 +68,7 @@
    Solution is heavily inspired by Craig Hockenberry's
    https://stackoverflow.com/questions/56597221/detecting-screen-recording-settings-on-macos-catalina/58985069#58985069
    */
-  if(@available(macOS 10.15, *)) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
     CFArrayRef windowList = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
     NSUInteger numberOfWindows = CFArrayGetCount(windowList);
     BOOL canRecordScreen = NO;
@@ -102,19 +102,19 @@
       *error = [NSError errorInDomain:MPAutotypeErrorDomain withCode:MPErrorAutotypeIsMissingScreenRecordingPermissions description:NSLocalizedString(@"ERROR_NO_PERMISSION_TO_RECORD_SCREEN", "Error description for missing screen recording permissions")];
     }
     return canRecordScreen;
-  }
+#endif
   return YES;
 }
 
 - (BOOL)hasAccessibiltyPermissions:(NSError *__autoreleasing*)error {
   BOOL isTrusted = YES;
   /* macOS 10.13 and lower allows us to send key events regardless of accessibilty trust */
-  if(@available(macOS 10.14, *)) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
     isTrusted = AXIsProcessTrusted();
     if(!isTrusted && error) {
       *error = [NSError errorInDomain:MPAutotypeErrorDomain withCode:MPErrorAutotypeIsMissingAccessibiltyPermissions description:NSLocalizedString(@"ERROR_NO_ACCESSIBILITY_PERMISSIONS", "Error description for missing accessibility permissions")];
     }
-  }
+#endif
   return isTrusted;
 }
 
@@ -128,7 +128,7 @@
 
 - (void)requestScreenRecordingPermission {
   /* macos 10.14 and lower do not require screen recording permission to get window titles */
-  if(@available(macos 10.15, *)) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
     /*
      To minimize the intrusion just make a 1px image of the upper left corner
      This way there is no real possibilty to access any private data
@@ -139,7 +139,7 @@
                                                     kCGNullWindowID,
                                                     kCGWindowImageDefault);
     CFRelease(screenshot);
-  }
+#endif
 }
 
 - (void)openAutomationPreferences {

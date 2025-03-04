@@ -33,9 +33,15 @@ typedef NS_ENUM(NSUInteger, MPPluginTableColumn) {
 
 @implementation MPPluginRepositoryBrowserViewController
 
+#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
+- (NSString *)nibName {
+  return (NSString *)@"PluginRepositoryBrowserView";
+}
+#else
 - (NSNibName)nibName {
   return @"PluginRepositoryBrowserView";
 }
+#endif
 
 - (void)viewDidLoad {
   [super viewDidLoad];

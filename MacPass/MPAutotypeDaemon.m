@@ -40,10 +40,10 @@
 #import "NSApplication+MPAdditions.h"
 #import "NSUserNotification+MPAdditions.h"
 
-#import "DDHotKeyCenter.h"
+#import <DDHotKey/DDHotKeyCenter.h>
 #import "DDHotKey+MacPassAdditions.h"
 
-#import "KeePassKit/KeePassKit.h"
+#import <KeePassKit/KeePassKit.h>
 #import <Carbon/Carbon.h>
 
 @interface MPAutotypeDaemon ()
