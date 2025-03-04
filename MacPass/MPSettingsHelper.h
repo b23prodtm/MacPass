@@ -22,6 +22,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+/* TouchID */
+APPKIT_EXTERN NSString *const kMPSettingsKeyTouchIdEnabled;
+APPKIT_EXTERN NSString *const kMPSettingsKeyTouchIdEncryptedKeyStore;       // NSDictionary with hased file names mapped to keys
+
 /* Clipboard */
 APPKIT_EXTERN NSString *const kMPSettingsKeyPasteboardClearTimeout;
 APPKIT_EXTERN NSString *const kMPSettingsKeyClearPasteboardOnQuit;
@@ -123,6 +127,14 @@ typedef NS_ENUM(NSUInteger, MPFaviconDownloadMethod) {
   MPFaviconDownloadMethodDirect,
   MPFaviconDownloadMethodDuckDuckGo,
   MPFaviconDownloadMethodGoogle,
+};
+
+// the values are mapped to NSControlStateValue for backwards compatibilty
+// older implementations did use a checkbox to store this setting
+typedef NS_ENUM(NSInteger, MPTouchIDKeyStorage) {
+  MPTouchIDKeyStorageTransient = NSControlStateValueMixed,
+  MPTouchIDKeyStorageDisabled = NSControlStateValueOff,
+  MPTouchIDKeyStoragePersistent = NSControlStateValueOn
 };
 
 /* Password Generation */
