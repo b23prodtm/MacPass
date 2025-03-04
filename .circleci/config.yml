@@ -14,7 +14,7 @@ jobs:
     macos:
       # Specify the Xcode version you desire here
       # See: https://circleci.com/docs/using-macos/
-      xcode: 15.2.0 
+      xcode: 15.2.0
 
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
@@ -38,6 +38,8 @@ jobs:
       # Specify the Xcode version you desire here
       # See: https://circleci.com/docs/using-macos/
       xcode: 15.2.0 
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
 
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
@@ -46,13 +48,20 @@ jobs:
       - checkout
       #- run: pod install # Install CocoaPods dependencies
       #- run: fastlane scan # Run tests using Fastlane
+      - run: brew install carthage
       - run: xcodebuild -target MacPass
+      - run:
+          # compress Xcode's build output so that it can be stored as an artifact
+          name: Compress app for storage
+          command: zip -r MacPass.zip build/Release/MacPass.app
+      - store_artifacts: # store this build output. Read more: https://circleci.com/docs/2.0/artifacts/
+          path: MacPass.zip
+          destination: app
 
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  application-build: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  test_build:
     jobs:
       - test
-      - build
+      - build:
+          requires:
+            - test
