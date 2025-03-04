@@ -5,7 +5,7 @@
 # https://circleci.com/docs/testing-ios/
 version: 2.1
 aliases:
-  - &brew:
+  - &brew
     run: 
       name: Install dependencies
       command: |
