@@ -4,6 +4,18 @@
 # For a detailed guide to building and testing on iOS, read the docs:
 # https://circleci.com/docs/testing-ios/
 version: 2.1
+aliases:
+  - &brew:
+    run: 
+      name: Install dependencies
+      command: |
+        brew install carthage
+        carthage update
+  - &caches
+    save_cache:
+      key: v1-dependencies-{{ checksum "Cartfile.resolved" }}
+      paths:
+        - Carthage
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
@@ -15,6 +27,8 @@ jobs:
       # Specify the Xcode version you desire here
       # See: https://circleci.com/docs/using-macos/
       xcode: 15.2.0
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
 
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
@@ -23,6 +37,11 @@ jobs:
       - checkout
       #- run: pod install # Install CocoaPods dependencies
       #- run: fastlane scan # Run tests using Fastlane
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Cartfile.resolved" }}
+      - *brew
+      - *caches
       - run: xcodebuild -target MacPassTests
       # Collect XML test results data to show in the UI, and save the same XML
       # files under test-results folder in the Artifacts tab
@@ -48,7 +67,11 @@ jobs:
       - checkout
       #- run: pod install # Install CocoaPods dependencies
       #- run: fastlane scan # Run tests using Fastlane
-      - run: brew install carthage
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Cartfile.resolved" }}
+      - *brew
+      - *caches
       - run: xcodebuild -target MacPass
       - run:
           # compress Xcode's build output so that it can be stored as an artifact
