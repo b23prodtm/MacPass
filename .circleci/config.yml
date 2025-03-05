@@ -46,7 +46,7 @@ jobs:
             - v1-dependencies-{{ checksum "Cartfile.resolved" }}
       - *brew
       - *caches
-      - run: xcodebuild -target MacPassTests
+      - run: xcodebuild test -scheme MacPass
       # Collect XML test results data to show in the UI, and save the same XML
       # files under test-results folder in the Artifacts tab
       - store_test_results:
