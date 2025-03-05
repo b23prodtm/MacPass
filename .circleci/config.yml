@@ -49,7 +49,7 @@ jobs:
       - run:
           name: test build
           command: |
-            xcodebuild -target MacPassTests -destination 'platform=macOs,arch=x86_64'
+            xcodebuild -arch x86_64 -target MacPassTests -destination 'platform=macOs,arch=x86_64'
       # Collect XML test results data to show in the UI, and save the same XML
       # files under test-results folder in the Artifacts tab
       - store_test_results:
@@ -83,7 +83,7 @@ jobs:
       - run:
           name: build
           command: |
-            xcodebuild -target MacPass -destination 'platform=macOS,arch=x86_64'
+            xcodebuild -arch x86_64 -target MacPass -destination 'platform=macOS,arch=x86_64'
       - run:
           # compress Xcode's build output so that it can be stored as an artifact
           name: Compress app for storage
