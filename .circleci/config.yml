@@ -4,6 +4,8 @@
 # For a detailed guide to building and testing on iOS, read the docs:
 # https://circleci.com/docs/testing-ios/
 version: 2.1
+orbs:
+  macos: circleci/macos@2.4.1
 aliases:
   - &brew
     run: 
@@ -11,6 +13,7 @@ aliases:
       command: |
         brew install carthage
         carthage update
+
   - &caches
     save_cache:
       key: v1-dependencies-{{ checksum "Cartfile.resolved" }}
@@ -33,6 +36,7 @@ jobs:
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
+      - macos/install-rosetta
       # Checkout the code as the first step.
       - checkout
       #- run: pod install # Install CocoaPods dependencies
@@ -63,6 +67,7 @@ jobs:
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
+      - macos/install-rosetta
       # Checkout the code as the first step.
       - checkout
       #- run: pod install # Install CocoaPods dependencies
