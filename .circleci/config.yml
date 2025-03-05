@@ -32,6 +32,7 @@ jobs:
       xcode: 13.4.1
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
+      ARCHS: x86_64
 
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
@@ -46,7 +47,7 @@ jobs:
             - v1-dependencies-{{ checksum "Cartfile.resolved" }}
       - *brew
       - *caches
-      - run: xcodebuild test -scheme MacPass
+      - run: xcodebuild test -scheme MacPass -destination 'Platform=macOs'
       # Collect XML test results data to show in the UI, and save the same XML
       # files under test-results folder in the Artifacts tab
       - store_test_results:
@@ -63,6 +64,7 @@ jobs:
       xcode: 13.4.1
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
+      ARCHS: x86_64
 
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
@@ -77,7 +79,7 @@ jobs:
             - v1-dependencies-{{ checksum "Cartfile.resolved" }}
       - *brew
       - *caches
-      - run: xcodebuild -target MacPass
+      - run: xcodebuild -target MacPass -destination 'Platform=macOs'
       - run:
           # compress Xcode's build output so that it can be stored as an artifact
           name: Compress app for storage
