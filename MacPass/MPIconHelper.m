@@ -42,7 +42,6 @@
       }
     }
 #endif
-  }
 
   static NSDictionary *icons;
   
