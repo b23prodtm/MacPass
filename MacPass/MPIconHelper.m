@@ -41,8 +41,9 @@
         return image;
       }
     }
-  }
 #endif
+  }
+
   static NSDictionary *icons;
   
   if(!icons) {
