@@ -98,15 +98,15 @@
   if(nil == transientKey || nil == persistentKey) {
     return transientKey == nil ? persistentKey : transientKey;
   }
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  if(touchIdMode == NSControlStateValueOn) {
-    return persistentKey;
-  }
-#else
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  if(touchIdMode == NSControlStateValueOn) {
+//    return persistentKey;
+//  }
+//#else
   if(touchIdMode == NSOnState) {
     return persistentKey;
   }
-#endif
+//#endif
   return transientKey;
 }
 
@@ -135,29 +135,30 @@
     return nil;
   }
   
-  SecKeyAlgorithm algorithm = kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM;
-  BOOL canDecrypt = SecKeyIsAlgorithmSupported(privateKey, kSecKeyOperationTypeDecrypt, algorithm);
-  if(!canDecrypt) {
-    if(error != NULL) {
-      *error = [NSError errorWithCode:MPErrorTouchIdUnsupportedKeyForEncrpytion description:NSLocalizedString(@"ERROR_TOUCH_ID_UNSUPPORTED_KEY", @"The key stored for TouchID is not suitable for encrpytion")];
-    }
-    if(privateKey) {
-      CFRelease(privateKey);
-    }
-    return nil;
-  }
-  
-  CFErrorRef errorRef = NULL; // FIXME: Release?
-  NSData* clearText = (NSData*)CFBridgingRelease(SecKeyCreateDecryptedData(privateKey, algorithm, (__bridge CFDataRef)data, &errorRef));
-  if(clearText) {
-    return [NSKeyedUnarchiver unarchiveObjectWithData:clearText];
-  }
-  if(error != NULL) {
-    *error = CFBridgingRelease(errorRef);
-  }
-  if(privateKey) {
-    CFRelease(privateKey);
-  }
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  SecKeyAlgorithm algorithm = kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM;
+//  BOOL canDecrypt = SecKeyIsAlgorithmSupported(privateKey, kSecKeyOperationTypeDecrypt, algorithm);
+//  if(!canDecrypt) {
+//    if(error != NULL) {
+//      *error = [NSError errorWithCode:MPErrorTouchIdUnsupportedKeyForEncrpytion description:NSLocalizedString(@"ERROR_TOUCH_ID_UNSUPPORTED_KEY", @"The key stored for TouchID is not suitable for encrpytion")];
+//    }
+//    if(privateKey) {
+//      CFRelease(privateKey);
+//    }
+//    return nil;
+//  }
+//  CFErrorRef errorRef = NULL; // FIXME: Release?
+//  NSData* clearText = (NSData*)CFBridgingRelease(SecKeyCreateDecryptedData(privateKey, algorithm, (__bridge CFDataRef)data, &errorRef));
+//  if(clearText) {
+//    return [NSKeyedUnarchiver unarchiveObjectWithData:clearText];
+//  }
+//  if(error != NULL) {
+//    *error = CFBridgingRelease(errorRef);
+//  }
+//  if(privateKey) {
+//    CFRelease(privateKey);
+//  }
+//#endif
   return nil;
 }
 
@@ -181,23 +182,25 @@
       return nil;
     }
   }
-  SecKeyAlgorithm algorithm = kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM;
-  BOOL canEncrypt = SecKeyIsAlgorithmSupported(publicKey, kSecKeyOperationTypeEncrypt, algorithm);
-  NSData *encryptedKey;
-  if(canEncrypt) {
-    CFErrorRef error = NULL;
-    encryptedKey = (NSData*)CFBridgingRelease(SecKeyCreateEncryptedData(publicKey, algorithm, (__bridge CFDataRef)keyData, &error));
-    if (!encryptedKey) {
-      NSError *err = CFBridgingRelease(error);
-      NSLog(@"Error while trying to decrypt the CompositeKey for TouchID unlock: %@", [err description]);
-    }
-  }
-  else {
-    NSLog(@"The key retreived from the Keychain is unable to encrypt data");
-  }
-  if (publicKey)  {
-    CFRelease(publicKey);
-  }
+  NSData *encryptedKey = NULL;
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//SecKeyAlgorithm algorithm = kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM;
+//  BOOL canEncrypt = SecKeyIsAlgorithmSupported(publicKey, kSecKeyOperationTypeEncrypt, algorithm);
+//  if(canEncrypt) {
+//    CFErrorRef error = NULL;
+//    encryptedKey = (NSData*)CFBridgingRelease(SecKeyCreateEncryptedData(publicKey, algorithm, (__bridge CFDataRef)keyData, &error));
+//    if (!encryptedKey) {
+//      NSError *err = CFBridgingRelease(error);
+//      NSLog(@"Error while trying to decrypt the CompositeKey for TouchID unlock: %@", [err description]);
+//    }
+//  }
+//  else {
+//    NSLog(@"The key retreived from the Keychain is unable to encrypt data");
+//  }
+//  if (publicKey)  {
+//    CFRelease(publicKey);
+//  }
+//#endif
   return encryptedKey;
 }
 
@@ -208,46 +211,46 @@
   NSData* publicKeyTag =  [MPTouchIdUnlockPublicKeyTag  dataUsingEncoding:NSUTF8StringEncoding];
   NSData* privateKeyTag = [MPTouchIdUnlockPrivateKeyTag dataUsingEncoding:NSUTF8StringEncoding];
   SecAccessControlRef access = NULL;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  SecAccessControlCreateFlags flags = kSecAccessControlBiometryCurrentSet;
-  #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
-    flags |= kSecAccessControlWatch | kSecAccessControlOr;
-  #endif
-  access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
-                                           kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                                           flags,
-                                           &error);
-  if(access == NULL) {
-    NSError *err = CFBridgingRelease(error);
-    NSLog(@"Error while trying to create AccessControl for TouchID unlock feature: %@", [err description]);
-    return;
-  }
-  NSDictionary* attributes = @{
-    (id)kSecAttrKeyType:        (id)kSecAttrKeyTypeRSA,
-    (id)kSecAttrKeySizeInBits:  @2048,
-    (id)kSecAttrSynchronizable: @NO,
-    (id)kSecPrivateKeyAttrs:
-         @{ (id)kSecAttrIsPermanent:    @YES,
-            (id)kSecAttrApplicationTag: privateKeyTag,
-            (id)kSecAttrLabel: privateKeyLabel,
-            (id)kSecAttrAccessControl:  (__bridge id)access
-          },
-    (id)kSecPublicKeyAttrs:
-         @{ (id)kSecAttrIsPermanent:    @YES,
-            (id)kSecAttrApplicationTag: publicKeyTag,
-            (id)kSecAttrLabel: publicKeyLabel,
-          },
-  };
-  SecKeyRef result = SecKeyCreateRandomKey((__bridge CFDictionaryRef)attributes, &error);
-  if(result == NULL) {
-    NSError *err = CFBridgingRelease(error);
-    NSLog(@"Error while trying to create a RSA keypair for TouchID unlock feature: %@", [err description]);
-  }
-  else {
-    CFRelease(result);
-  }
-  CFRelease(access);
-#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  SecAccessControlCreateFlags flags = kSecAccessControlBiometryCurrentSet;
+//  #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
+//    flags |= kSecAccessControlWatch | kSecAccessControlOr;
+//  #endif
+//  access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+//                                           kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+//                                           flags,
+//                                           &error);
+//  if(access == NULL) {
+//    NSError *err = CFBridgingRelease(error);
+//    NSLog(@"Error while trying to create AccessControl for TouchID unlock feature: %@", [err description]);
+//    return;
+//  }
+//  NSDictionary* attributes = @{
+//    (id)kSecAttrKeyType:        (id)kSecAttrKeyTypeRSA,
+//    (id)kSecAttrKeySizeInBits:  @2048,
+//    (id)kSecAttrSynchronizable: @NO,
+//    (id)kSecPrivateKeyAttrs:
+//         @{ (id)kSecAttrIsPermanent:    @YES,
+//            (id)kSecAttrApplicationTag: privateKeyTag,
+//            (id)kSecAttrLabel: privateKeyLabel,
+//            (id)kSecAttrAccessControl:  (__bridge id)access
+//          },
+//    (id)kSecPublicKeyAttrs:
+//         @{ (id)kSecAttrIsPermanent:    @YES,
+//            (id)kSecAttrApplicationTag: publicKeyTag,
+//            (id)kSecAttrLabel: publicKeyLabel,
+//          },
+//  };
+//  SecKeyRef result = SecKeyCreateRandomKey((__bridge CFDictionaryRef)attributes, &error);
+//  if(result == NULL) {
+//    NSError *err = CFBridgingRelease(error);
+//    NSLog(@"Error while trying to create a RSA keypair for TouchID unlock feature: %@", [err description]);
+//  }
+//  else {
+//    CFRelease(result);
+//  }
+//  CFRelease(access);
+//#endif
   return;
 }
 

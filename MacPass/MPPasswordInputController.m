@@ -104,9 +104,9 @@
   transitentItem.tag = MPTouchIDKeyStorageTransient;
   persistentItem.tag = MPTouchIDKeyStoragePersistent;
 
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  touchIDMenu.itemArray = @[disabledItem, transitentItem, persistentItem];
-#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  touchIDMenu.itemArray = @[disabledItem, transitentItem, persistentItem];
+//#endif
   [touchIDMenu addItem:disabledItem];
   [touchIDMenu addItem:transitentItem];
   [touchIDMenu addItem:persistentItem];
@@ -116,16 +116,18 @@
                          toObject:NSUserDefaultsController.sharedUserDefaultsController
                       withKeyPath:[MPSettingsHelper defaultControllerPathForKey:kMPSettingsKeyTouchIdEnabled]
                           options:nil];
-  [self.touchIdEnabledButton bind:NSValueBinding
-                         toObject:NSUserDefaultsController.sharedUserDefaultsController
-                      withKeyPath:[MPSettingsHelper defaultControllerPathForKey:kMPSettingsKeyTouchIdEnabled]
-                          options:nil];
-  self.touchIdEnabledButton.hidden = YES;
-  
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  self.touchIdEnabledButton.hidden = NO;
-  [self _touchIdUpdateToolTip];
-#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  [self.touchIdEnabledButton bind:NSValueBinding
+//                         toObject:NSUserDefaultsController.sharedUserDefaultsController
+//                      withKeyPath:[MPSettingsHelper defaultControllerPathForKey:kMPSettingsKeyTouchIdEnabled]
+//                          options:nil];
+//  self.touchIdEnabledButton.hidden = YES;
+//  
+//#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  self.touchIdEnabledButton.hidden = NO;
+//  [self _touchIdUpdateToolTip];
+//#endif
   [self _reset];
 }
 
@@ -216,13 +218,17 @@
   }
   NSData* encryptedKey = [MPTouchIdCompositeKeyStore.defaultStore loadEncryptedCompositeKeyForDocumentKey:documentKey];
   if(!encryptedKey) {
-    self.touchIdButton.enabled = NO;
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//    self.touchIdButton.enabled = NO;
+//#endif
     return;
   }
   NSError *error;
   KPKCompositeKey* compositeKey = [MPTouchIdCompositeKeyStore.defaultStore compositeKeyForEncryptedKeyData:encryptedKey error:&error];
   if(!compositeKey) {
-    self.touchIdButton.enabled = NO;
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//    self.touchIdButton.enabled = NO;
+//#endif
     return;
   }
   bool success = self.completionHandler(compositeKey, NULL, false, &error);
@@ -230,7 +236,9 @@
     return;
   }
   // TODO: clear encryptedKey if password was wrong? Show user feedback? 
-  self.touchIdButton.enabled = NO;
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  self.touchIdButton.enabled = NO;
+//#endif
   [self _showError:error];
 }
 
@@ -239,19 +247,21 @@
 }
 
 - (void) _touchIdUpdateToolTip {
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  switch(self.touchIdEnabledButton.state) {
-    case NSControlStateValueOn:
-      self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_ENABELD", @"Tooltip displayed when TouchID is is fully enabeld");
-    case NSControlStateValueOff:
-      self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_DISABLED", @"Tooltip displayed when TouchID is disabled");
-    case NSControlStateValueMixed:
-    default:
-      self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_TRANSIENT", @"Tooltip displayed when TouchID is in transient (inmemory) mode");
-  }
-#else
-  self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_TRANSIENT", @"Tooltip displayed when TouchID is in transient (inmemory) mode");
-#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  switch(self.touchIdEnabledButton.state) {
+//    case NSControlStateValueOn:
+//      self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_ENABELD", @"Tooltip displayed when TouchID is is fully enabeld");
+//    case NSControlStateValueOff:
+//      self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_DISABLED", @"Tooltip displayed when TouchID is disabled");
+//    case NSControlStateValueMixed:
+//    default:
+//      self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_TRANSIENT", @"Tooltip displayed when TouchID is in transient (inmemory) mode");
+//  }
+//#else
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_TRANSIENT", @"Tooltip displayed when TouchID is in transient (inmemory) mode");
+//#endif
+//#endif
 }
 
 - (IBAction)resetKeyFile:(id)sender {
@@ -269,9 +279,11 @@
   self.enablePassword = YES;
   self.passwordTextField.stringValue = @"";
   self.messageInfoTextField.hidden = (nil == self.message);
-  self.touchIdButton.hidden = ![self _touchIdIsUnlockAvailable];
-  self.touchIdButton.enabled = YES;
-
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  self.touchIdButton.hidden = ![self _touchIdIsUnlockAvailable];
+//  self.touchIdButton.enabled = YES;
+//#endif
+  
   if(self.message) {
     self.messageInfoTextField.stringValue = self.message;
     self.messageImageView.image = [NSImage imageNamed:NSImageNameInfo];
@@ -302,33 +314,37 @@
 }
 
 
-- (NSTouchBar *)makeTouchBar {
-  NSTouchBar *touchBar = [[NSTouchBar alloc] init];
-  touchBar.delegate = self;
-  touchBar.customizationIdentifier = MPTouchBarCustomizationIdentifierPasswordInput;
-  NSArray<NSTouchBarItemIdentifier> *defaultItemIdentifiers = @[MPTouchBarItemIdentifierShowPassword, MPTouchBarItemIdentifierChooseKeyfile, NSTouchBarItemIdentifierFlexibleSpace,MPTouchBarItemIdentifierUnlock];
-  touchBar.defaultItemIdentifiers = defaultItemIdentifiers;
-  touchBar.customizationAllowedItemIdentifiers = defaultItemIdentifiers;
-  return touchBar;
-}
-
-- (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier  API_AVAILABLE(macos(10.12.2)) {
-  if (identifier == MPTouchBarItemIdentifierChooseKeyfile) {
-    return [MPTouchBarButtonCreator touchBarButtonWithTitleAndImage:NSLocalizedString(@"TOUCHBAR_CHOOSE_KEYFILE","Touchbar button label for choosing the keyfile") identifier:MPTouchBarItemIdentifierChooseKeyfile image:[NSImage imageNamed:NSImageNameTouchBarFolderTemplate] target:self.keyPathControl selector:@selector(showOpenPanel:) customizationLabel:NSLocalizedString(@"TOUCHBAR_CHOOSE_KEYFILE","Touchbar button label for choosing the keyfile")];
-  } else if (identifier == MPTouchBarItemIdentifierShowPassword) {
-    NSTouchBarItem *item = [MPTouchBarButtonCreator touchBarButtonWithTitleAndImage:NSLocalizedString(@"TOUCHBAR_SHOW_PASSWORD","Touchbar button label for showing the password") identifier:MPTouchBarItemIdentifierShowPassword image:[NSImage imageNamed:NSImageNameTouchBarQuickLookTemplate] target:self selector:@selector(toggleShowPassword) customizationLabel:NSLocalizedString(@"TOUCHBAR_SHOW_PASSWORD","Touchbar button label for showing the password")];
-    _showPasswordButton = (NSButton *) item.view;
-    return item;
-  } else if (identifier == MPTouchBarItemIdentifierUnlock) {
-    return [MPTouchBarButtonCreator touchBarButtonWithImage:[NSImage imageNamed:NSImageNameLockUnlockedTemplate] identifier:MPTouchBarItemIdentifierUnlock target:self selector:@selector(_submit:) customizationLabel:NSLocalizedString(@"TOUCHBAR_UNLOCK_DATABASE","Touchbar button label for unlocking the database")];
-  } else {
-    return nil;
-  }
-}
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//- (NSTouchBar *)makeTouchBar {
+//  NSTouchBar *touchBar = [[NSTouchBar alloc] init];
+//  touchBar.delegate = self;
+//  touchBar.customizationIdentifier = MPTouchBarCustomizationIdentifierPasswordInput;
+//  NSArray<NSTouchBarItemIdentifier> *defaultItemIdentifiers = @[MPTouchBarItemIdentifierShowPassword, MPTouchBarItemIdentifierChooseKeyfile, NSTouchBarItemIdentifierFlexibleSpace,MPTouchBarItemIdentifierUnlock];
+//  touchBar.defaultItemIdentifiers = defaultItemIdentifiers;
+//  touchBar.customizationAllowedItemIdentifiers = defaultItemIdentifiers;
+//  return touchBar;
+//}
+//
+//- (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier  API_AVAILABLE(macos(10.12.2)) {
+//  if (identifier == MPTouchBarItemIdentifierChooseKeyfile) {
+//    return [MPTouchBarButtonCreator touchBarButtonWithTitleAndImage:NSLocalizedString(@"TOUCHBAR_CHOOSE_KEYFILE","Touchbar button label for choosing the keyfile") identifier:MPTouchBarItemIdentifierChooseKeyfile image:[NSImage imageNamed:NSImageNameTouchBarFolderTemplate] target:self.keyPathControl selector:@selector(showOpenPanel:) customizationLabel:NSLocalizedString(@"TOUCHBAR_CHOOSE_KEYFILE","Touchbar button label for choosing the keyfile")];
+//  } else if (identifier == MPTouchBarItemIdentifierShowPassword) {
+//    NSTouchBarItem *item = [MPTouchBarButtonCreator touchBarButtonWithTitleAndImage:NSLocalizedString(@"TOUCHBAR_SHOW_PASSWORD","Touchbar button label for showing the password") identifier:MPTouchBarItemIdentifierShowPassword image:[NSImage imageNamed:NSImageNameTouchBarQuickLookTemplate] target:self selector:@selector(toggleShowPassword) customizationLabel:NSLocalizedString(@"TOUCHBAR_SHOW_PASSWORD","Touchbar button label for showing the password")];
+//    _showPasswordButton = (NSButton *) item.view;
+//    return item;
+//  } else if (identifier == MPTouchBarItemIdentifierUnlock) {
+//    return [MPTouchBarButtonCreator touchBarButtonWithImage:[NSImage imageNamed:NSImageNameLockUnlockedTemplate] identifier:MPTouchBarItemIdentifierUnlock target:self selector:@selector(_submit:) customizationLabel:NSLocalizedString(@"TOUCHBAR_UNLOCK_DATABASE","Touchbar button label for unlocking the database")];
+//  } else {
+//    return nil;
+//  }
+//}
+//#endif
 
 - (void)toggleShowPassword {
   self.showPassword = !self.showPassword;
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
   self.showPasswordButton.bezelColor = self.showPassword ? [NSColor selectedControlColor] : [NSColor controlColor];
+#endif
 }
 
 - (void)_didSetKeyURL:(NSNotification *)notification {

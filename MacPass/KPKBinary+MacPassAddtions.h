@@ -10,8 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface KPKBinary (MacPassAddtions) <NSFilePromiseProviderDelegate>
-
-@end
-
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//@interface KPKBinary (MacPassAddtions) <NSFilePromiseProviderDelegate>
+//
+//@end
+//#endif
 NS_ASSUME_NONNULL_END
