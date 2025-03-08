@@ -180,10 +180,13 @@ NSString *const MPToolbarItemIdentifierAutotype     = @"TOOLBAR_AUTOTYPE";
       
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
         // do not call any sizing API
-#else
+      if(@available(macOS 11, unavailable, *)) {
+#endif
         /* Use default size base on documentation */
         item.minSize = NSMakeSize(140, 32);
         item.maxSize = NSMakeSize(400, 32);
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+      }
 #endif
       
       NSMenu *templateMenu = [self _allocateSearchMenuTemplate];

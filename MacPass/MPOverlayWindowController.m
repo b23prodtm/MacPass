@@ -66,6 +66,7 @@
   self.imageView.cell.backgroundStyle = NSBackgroundStyleRaised;
   ((NSImageCell *)self.imageView.cell).imageAlignment = NSImageAlignCenter;
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+  if(@available(macOS 10.14, *, *))
     self.imageView.contentTintColor = NSColor.textColor;
 #endif
   }

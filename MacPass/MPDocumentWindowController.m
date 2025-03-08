@@ -101,6 +101,7 @@ typedef void (^MPPasswordChangedBlock)(BOOL didChangePassword);
   
   self.window.delegate = self.documentWindowDelegate;
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+  if(@available(macOS 11, *, *)) {
     /* let the user decide how to dipsplay the toolbar */
     BOOL useUnifiedToolbar = [NSUserDefaults.standardUserDefaults boolForKey:kMPSettingsKeyUseUnifiedToolbar];
     if(useUnifiedToolbar) {
@@ -111,6 +112,7 @@ typedef void (^MPPasswordChangedBlock)(BOOL didChangePassword);
     else {
       self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
     }
+  }
 #endif
   [self.window registerForDraggedTypes:@[NSURLPboardType]];
   
@@ -130,6 +132,7 @@ typedef void (^MPPasswordChangedBlock)(BOOL didChangePassword);
   self.toolbar.allowsUserCustomization = YES;
   /* center search in toolbar */
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+  if(@available(macOS 10.14, *, *))
     self.toolbar.centeredItemIdentifier = MPToolbarItemIdentifierSearch;
 #else
     // to not do any magic here

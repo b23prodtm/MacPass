@@ -104,13 +104,13 @@
   transitentItem.tag = MPTouchIDKeyStorageTransient;
   persistentItem.tag = MPTouchIDKeyStoragePersistent;
 
-#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+  if(@available(macOS 10.13))
+    touchIDMenu.itemArray = @[disabledItem, transitentItem, persistentItem];
+#endif
   [touchIDMenu addItem:disabledItem];
   [touchIDMenu addItem:transitentItem];
   [touchIDMenu addItem:persistentItem];
-#else
-  touchIDMenu.itemArray = @[disabledItem, transitentItem, persistentItem];
-#endif
   
   self.touchIdModeButton.menu = touchIDMenu;
   [self.touchIdModeButton bind:NSSelectedTagBinding
@@ -123,10 +123,11 @@
                           options:nil];
   self.touchIdEnabledButton.hidden = YES;
   
-#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
-#else
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+  if(@available(macOS 10.13)) {
     self.touchIdEnabledButton.hidden = NO;
     [self _touchIdUpdateToolTip];
+  }
 #endif
   [self _reset];
 }
@@ -241,18 +242,19 @@
 }
 
 - (void) _touchIdUpdateToolTip {
-  switch(self.touchIdEnabledButton.state) {
-#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
-#else
-    case NSControlStateValueOn:
-      self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_ENABELD", @"Tooltip displayed when TouchID is is fully enabeld");
-    case NSControlStateValueOff:
-      self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_DISABLED", @"Tooltip displayed when TouchID is disabled");
-    case NSControlStateValueMixed:
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+      if(@available(macOS 10.13)) {
+        switch(self.touchIdEnabledButton.state) {
+          case NSControlStateValueOn:
+            self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_ENABELD", @"Tooltip displayed when TouchID is is fully enabeld");
+          case NSControlStateValueOff:
+            self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_DISABLED", @"Tooltip displayed when TouchID is disabled");
+          case NSControlStateValueMixed:
+          default:
+            self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_TRANSIENT", @"Tooltip displayed when TouchID is in transient (inmemory) mode");
+      } else
 #endif
-    default:
-      self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_TRANSIENT", @"Tooltip displayed when TouchID is in transient (inmemory) mode");
-  }
+        self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_TRANSIENT", @"Tooltip displayed when TouchID is in transient (inmemory) mode");
 }
 
 - (IBAction)resetKeyFile:(id)sender {

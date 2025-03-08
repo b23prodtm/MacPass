@@ -23,11 +23,12 @@
 @implementation MPDocumentSplitViewController
 
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+@available(macOS 10.14, *, *)
 - (NSNibName)nibName {
   return @"DocumentSplitView";
   
 }
-
+@available(macOS 10.14, *, *)
 - (instancetype)initWithNibName:(NSNibName)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if(self) {
@@ -37,12 +38,15 @@
   }
   return self;
 }
-#else
+@available(macOS 10.14, unavailable, *)
+#endif
 - (NSString *)nibName {
   return (NSString *)@"DocumentSplitView";
   
 }
-
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+@available(macOS 10.14, unavailable, *)
+#endif
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:(NSString *)nibNameOrNil bundle:nibBundleOrNil];
   if(self) {
@@ -52,7 +56,6 @@
   }
   return self;
 }
-#endif
 
 - (void)viewWillLayout {
   self.splitView.autosaveName = @"SplitView";

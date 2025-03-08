@@ -29,18 +29,21 @@
 
 @implementation DDHotKey (MPKeydata)
 
-+ (NSData *)hotKeyDataWithKeyCode:(unsigned short)keyCode modifierFlags:(NSUInteger)flags {
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] init];
-  archiver.requiresSecureCoding = YES;
-  [archiver encodeInt:keyCode forKey:NSStringFromSelector(@selector(keyCode))];
-  [archiver encodeInteger:flags forKey:NSStringFromSelector(@selector(modifierFlags))];
-  return [archiver.encodedData copy];
-#else
-  MPMacKeyCode *mKeyCode = [[MPMacKeyCode alloc] initWithKeyCode:keyCode modifierFlags:flags];
-  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:mKeyCode];
-  return [data copy];
+@available(macOS 10.13, *, *)
++ (NSData *)hotKeyDataWithKeyCode:(unsigned short)keyCode modifierFlags:(NSUInteger)flags {
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] init];
+    archiver.requiresSecureCoding = YES;
+    [archiver encodeInt:keyCode forKey:NSStringFromSelector(@selector(keyCode))];
+    [archiver encodeInteger:flags forKey:NSStringFromSelector(@selector(modifierFlags))];
+    return [archiver.encodedData copy];
+  }
+@available(macOS 10.13, unavailable, *)
 #endif
++ (NSData *)hotKeyDataWithKeyCode:(unsigned short)keyCode modifierFlags:(NSUInteger)flags {
+    MPMacKeyCode *mKeyCode = [[MPMacKeyCode alloc] initWithKeyCode:keyCode modifierFlags:flags];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:mKeyCode];
+    return [data copy];
 }
 
 + (NSData *)defaultHotKeyData {
@@ -81,11 +84,15 @@
   }
   
   NSError *error;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
-  NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-  unarchiver.requiresSecureCoding = YES;
-#else
-  NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+  if (@available(macOS 10.13, *, *)){
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+  } else {
+#endif
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    unarchiver.requiresSecureCoding = YES;
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+  }
 #endif
   if(error) {
     NSLog(@"Error while trying to decode DDHotKey %@", error.localizedDescription);

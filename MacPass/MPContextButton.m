@@ -53,10 +53,11 @@
   
   self.focusRingType = NSFocusRingTypeNone;
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+  if(@available(macOS 11, *, *))
     self.segmentStyle = NSSegmentStyleSeparated;
-#else
-    self.segmentStyle = NSSegmentStyleTexturedSquare;
+  else
 #endif
+    self.segmentStyle = NSSegmentStyleTexturedSquare;
   self.segmentCount = MPContextButtonSegmentCount;
   cell.trackingMode = NSSegmentSwitchTrackingMomentary;
   [cell setWidth:31 forSegment:MPContextButtonSegmentButton];

@@ -29,6 +29,7 @@
 
 + (NSImage *)icon:(MPIconType)type {
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+  if(@available(macOS 11, *, *)) {
     static NSDictionary *symbols;
     if(!symbols) {
       symbols = MPIconHelper.availableSymbolNames;
@@ -41,6 +42,7 @@
         return image;
       }
     }
+  }
 #endif
 
   static NSDictionary *icons;
@@ -188,13 +190,13 @@
     };
   });
   
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 11000
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+  if(@available(macOS 11, *, *))
     return symbolNames;
-  }
-#else
-    return nil;
-  }
+  else
 #endif
+    return nil;
+}
 
 
 + (NSDictionary *)availableIconNames {
