@@ -247,7 +247,6 @@
     CFRelease(result);
   }
   CFRelease(access);
-  }
 #endif
   return;
 }
