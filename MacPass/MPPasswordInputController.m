@@ -342,7 +342,9 @@
 
 - (void)toggleShowPassword {
   self.showPassword = !self.showPassword;
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
   self.showPasswordButton.bezelColor = self.showPassword ? [NSColor selectedControlColor] : [NSColor controlColor];
+#endif
 }
 
 - (void)_didSetKeyURL:(NSNotification *)notification {

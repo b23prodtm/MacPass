@@ -72,8 +72,12 @@
     return nil;
   }
   KPKBinary *binary = entry.binaries[row];
-  NSFilePromiseProvider *provider = [[NSFilePromiseProvider alloc] initWithFileType:(NSString *)kUTTypeData delegate:binary];
-  return provider;
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  NSFilePromiseProvider *provider = [[NSFilePromiseProvider alloc] initWithFileType:(NSString *)kUTTypeData delegate:binary];
+//  return provider;
+//#else
+  return nil;
+//#endif
 }
 
 @end

@@ -18,7 +18,9 @@
 @property (strong) IBOutlet NSStepper *timeStepStepper;
 @property (strong) IBOutlet NSPopUpButton *digitCountPopUpButton;
 @property (strong) IBOutlet NSImageView *qrCodeImageView;
-@property (strong) IBOutlet NSGridView *gridView;
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//@property (strong) IBOutlet NSGridView *gridView;
+//#endif
 @property (strong) IBOutlet NSPopUpButton *typePopUpButton;
 
 @property (nonatomic, readonly) KPKEntry *representedEntry;

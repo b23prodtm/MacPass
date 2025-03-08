@@ -271,7 +271,9 @@
       @(MPIconCertificat)            : @"67_CertificatTemplate",
       @(MPIconPhone)                 : @"68_PhoneTemplate",
       /* Custom */
-      @(MPIconSidebar)               : NSImageNameTouchBarGetInfoTemplate,
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//      @(MPIconSidebar)               : NSImageNameTouchBarGetInfoTemplate,
+//#endif
       @(MPIconAddFolder)             : @"addFolderTemplate",
       @(MPIconHardDisk)              : @"harddiskTemplate",
       @(MPIconCreated)               : @"createdTemplate",

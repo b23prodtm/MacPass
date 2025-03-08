@@ -135,29 +135,30 @@
     return nil;
   }
   
-  SecKeyAlgorithm algorithm = kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM;
-  BOOL canDecrypt = SecKeyIsAlgorithmSupported(privateKey, kSecKeyOperationTypeDecrypt, algorithm);
-  if(!canDecrypt) {
-    if(error != NULL) {
-      *error = [NSError errorWithCode:MPErrorTouchIdUnsupportedKeyForEncrpytion description:NSLocalizedString(@"ERROR_TOUCH_ID_UNSUPPORTED_KEY", @"The key stored for TouchID is not suitable for encrpytion")];
-    }
-    if(privateKey) {
-      CFRelease(privateKey);
-    }
-    return nil;
-  }
-  
-  CFErrorRef errorRef = NULL; // FIXME: Release?
-  NSData* clearText = (NSData*)CFBridgingRelease(SecKeyCreateDecryptedData(privateKey, algorithm, (__bridge CFDataRef)data, &errorRef));
-  if(clearText) {
-    return [NSKeyedUnarchiver unarchiveObjectWithData:clearText];
-  }
-  if(error != NULL) {
-    *error = CFBridgingRelease(errorRef);
-  }
-  if(privateKey) {
-    CFRelease(privateKey);
-  }
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  SecKeyAlgorithm algorithm = kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM;
+//  BOOL canDecrypt = SecKeyIsAlgorithmSupported(privateKey, kSecKeyOperationTypeDecrypt, algorithm);
+//  if(!canDecrypt) {
+//    if(error != NULL) {
+//      *error = [NSError errorWithCode:MPErrorTouchIdUnsupportedKeyForEncrpytion description:NSLocalizedString(@"ERROR_TOUCH_ID_UNSUPPORTED_KEY", @"The key stored for TouchID is not suitable for encrpytion")];
+//    }
+//    if(privateKey) {
+//      CFRelease(privateKey);
+//    }
+//    return nil;
+//  }
+//  CFErrorRef errorRef = NULL; // FIXME: Release?
+//  NSData* clearText = (NSData*)CFBridgingRelease(SecKeyCreateDecryptedData(privateKey, algorithm, (__bridge CFDataRef)data, &errorRef));
+//  if(clearText) {
+//    return [NSKeyedUnarchiver unarchiveObjectWithData:clearText];
+//  }
+//  if(error != NULL) {
+//    *error = CFBridgingRelease(errorRef);
+//  }
+//  if(privateKey) {
+//    CFRelease(privateKey);
+//  }
+//#endif
   return nil;
 }
 
@@ -181,23 +182,25 @@
       return nil;
     }
   }
-  SecKeyAlgorithm algorithm = kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM;
-  BOOL canEncrypt = SecKeyIsAlgorithmSupported(publicKey, kSecKeyOperationTypeEncrypt, algorithm);
-  NSData *encryptedKey;
-  if(canEncrypt) {
-    CFErrorRef error = NULL;
-    encryptedKey = (NSData*)CFBridgingRelease(SecKeyCreateEncryptedData(publicKey, algorithm, (__bridge CFDataRef)keyData, &error));
-    if (!encryptedKey) {
-      NSError *err = CFBridgingRelease(error);
-      NSLog(@"Error while trying to decrypt the CompositeKey for TouchID unlock: %@", [err description]);
-    }
-  }
-  else {
-    NSLog(@"The key retreived from the Keychain is unable to encrypt data");
-  }
-  if (publicKey)  {
-    CFRelease(publicKey);
-  }
+  NSData *encryptedKey = NULL;
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//SecKeyAlgorithm algorithm = kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM;
+//  BOOL canEncrypt = SecKeyIsAlgorithmSupported(publicKey, kSecKeyOperationTypeEncrypt, algorithm);
+//  if(canEncrypt) {
+//    CFErrorRef error = NULL;
+//    encryptedKey = (NSData*)CFBridgingRelease(SecKeyCreateEncryptedData(publicKey, algorithm, (__bridge CFDataRef)keyData, &error));
+//    if (!encryptedKey) {
+//      NSError *err = CFBridgingRelease(error);
+//      NSLog(@"Error while trying to decrypt the CompositeKey for TouchID unlock: %@", [err description]);
+//    }
+//  }
+//  else {
+//    NSLog(@"The key retreived from the Keychain is unable to encrypt data");
+//  }
+//  if (publicKey)  {
+//    CFRelease(publicKey);
+//  }
+//#endif
   return encryptedKey;
 }
 
