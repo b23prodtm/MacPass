@@ -233,7 +233,7 @@ Gw
                     </connections>
                 </button>
             </subviews>
-            <constraints>
+<!--              <constraints>
                 <constraint firstItem="5a5-df-HAb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="3Dj-2P-0OT"/>
                 <constraint firstAttribute="trailing" secondItem="4gl-4p-0WY" secondAttribute="trailing" constant="20" symbolic="YES" id="4eg-dj-7eq"/>
                 <constraint firstItem="5a5-df-HAb" firstAttribute="bottom" secondItem="Ppm-aD-yti" secondAttribute="bottom" id="CZ9-Ia-TWV"/>
@@ -243,7 +243,7 @@ Gw
                 <constraint firstAttribute="bottom" secondItem="Ppm-aD-yti" secondAttribute="bottom" constant="20" symbolic="YES" id="eBG-Ns-4ur"/>
                 <constraint firstItem="4gl-4p-0WY" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="g3C-GL-weQ"/>
                 <constraint firstAttribute="trailing" secondItem="Ppm-aD-yti" secondAttribute="trailing" constant="20" symbolic="YES" id="gxW-QO-gFu"/>
-            </constraints>
+            </constraints>-->
             <point key="canvasLocation" x="-1402" y="-1030"/>
         </customView>
     </objects>
