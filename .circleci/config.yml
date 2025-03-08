@@ -90,7 +90,7 @@ jobs:
           command: zip -r MacPass.zip build/Release/MacPass.app
       - store_artifacts: # store this build output. Read more: https://circleci.com/docs/2.0/artifacts/
           path: MacPass.zip
-          destination: app
+          destination: MacPass-nightly
 
 workflows:
   test_build:
