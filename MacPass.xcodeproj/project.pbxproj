@@ -21,6 +21,7 @@
 		488FD3422D74C9CF00CEA188 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 488FD3392D74C9CF00CEA188 /* Cartfile */; };
 		48F8D98F2D7C3FE400471CE8 /* MPDocument+BiometricEncryptionSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F8D98E2D7C3FE400471CE8 /* MPDocument+BiometricEncryptionSupport.m */; };
 		48F8D9912D7C403300471CE8 /* MPTouchIdCompositeKeyStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F8D9902D7C403300471CE8 /* MPTouchIdCompositeKeyStore.m */; };
+		48F8D9DD2D7C964D00471CE8 /* MPMacKeyCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F8D9DC2D7C964D00471CE8 /* MPMacKeyCode.m */; };
 		4C00E33B17D8FAC100F37192 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C00E33A17D8FAC100F37192 /* Carbon.framework */; };
 		4C01C2421764D8980016D5D0 /* MPContextMenuHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C01C2411764D8980016D5D0 /* MPContextMenuHelper.m */; };
 		4C06B17F21D9691F00CD4BBC /* MPPluginStatusTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C06B17E21D9691F00CD4BBC /* MPPluginStatusTableCellView.m */; };
@@ -396,6 +397,8 @@
 		488FD3392D74C9CF00CEA188 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		48F8D98E2D7C3FE400471CE8 /* MPDocument+BiometricEncryptionSupport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "MPDocument+BiometricEncryptionSupport.m"; path = "MacPass/MPDocument+BiometricEncryptionSupport.m"; sourceTree = "<group>"; };
 		48F8D9902D7C403300471CE8 /* MPTouchIdCompositeKeyStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MPTouchIdCompositeKeyStore.m; path = MacPass/MPTouchIdCompositeKeyStore.m; sourceTree = "<group>"; };
+		48F8D9DB2D7C961C00471CE8 /* MPMacKeyCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPMacKeyCode.h; path = MacPass/MPMacKeyCode.h; sourceTree = "<group>"; };
+		48F8D9DC2D7C964D00471CE8 /* MPMacKeyCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MPMacKeyCode.m; path = MacPass/MPMacKeyCode.m; sourceTree = "<group>"; };
 		4C00E33A17D8FAC100F37192 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4C01C2401764D8980016D5D0 /* MPContextMenuHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MPContextMenuHelper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4C01C2411764D8980016D5D0 /* MPContextMenuHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MPContextMenuHelper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1659,6 +1662,8 @@
 		4C77E35715B84A240093A587 = {
 			isa = PBXGroup;
 			children = (
+				48F8D9DB2D7C961C00471CE8 /* MPMacKeyCode.h */,
+				48F8D9DC2D7C964D00471CE8 /* MPMacKeyCode.m */,
 				48F8D9902D7C403300471CE8 /* MPTouchIdCompositeKeyStore.m */,
 				48F8D98E2D7C3FE400471CE8 /* MPDocument+BiometricEncryptionSupport.m */,
 				4869883C2D752EBB0020025A /* KeePassKit.framework */,
@@ -2317,6 +2322,7 @@
 				4C6B7C7D18BE7EB0001D5D77 /* MPDocument+History.m in Sources */,
 				4CA0B2FC15BCAF8600654E32 /* MPPreferencesWindowController.m in Sources */,
 				4C8F0C6E1FCEE9B900BE157F /* MPPluginConstants.m in Sources */,
+				48F8D9DD2D7C964D00471CE8 /* MPMacKeyCode.m in Sources */,
 				4C83814215BF4677001AE468 /* MPDocumentWindowController.m in Sources */,
 				4CE4FFA22746953A00789F75 /* MPAdvancedDatabaseSettingsViewController.m in Sources */,
 				4C82046A1FCDC07800EB24A4 /* MPPickfieldViewController.m in Sources */,

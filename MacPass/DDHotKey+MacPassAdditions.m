@@ -23,17 +23,24 @@
 #import "DDHotKey+MacPassAdditions.h"
 
 #import "MPFlagsHelper.h"
+#import "MPMacKeyCode.h"
 
 #import <Carbon/Carbon.h>
 
 @implementation DDHotKey (MPKeydata)
 
 + (NSData *)hotKeyDataWithKeyCode:(unsigned short)keyCode modifierFlags:(NSUInteger)flags {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
   NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] init];
   archiver.requiresSecureCoding = YES;
   [archiver encodeInt:keyCode forKey:NSStringFromSelector(@selector(keyCode))];
   [archiver encodeInteger:flags forKey:NSStringFromSelector(@selector(modifierFlags))];
   return [archiver.encodedData copy];
+#else
+  MPMacKeyCode *mKeyCode = [[MPMacKeyCode alloc] initWithKeyCode:keyCode modifierFlags:flags];
+  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:mKeyCode];
+  return [data copy];
+#endif
 }
 
 + (NSData *)defaultHotKeyData {
