@@ -12,7 +12,7 @@ aliases:
       name: Install dependencies
       command: |
         brew install carthage
-        carthage update --use-xcframeworks
+        carthage update
 
   - &caches
     save_cache:
