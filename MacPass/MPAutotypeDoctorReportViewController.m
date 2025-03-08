@@ -10,11 +10,15 @@
 #import "MPAutotypeDoctor.h"
 
 @implementation MPAutotypeDoctorReportViewController
-
+#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
+- (NSString *)nibName {
+  return (NSString *)@"AutotypeDoctorReportViewController";
+}
+#else
 - (NSNibName)nibName {
   return @"AutotypeDoctorReportViewController";
 }
-
+#endif
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self _updateView];

@@ -99,12 +99,19 @@
   NSMenuItem *persistentItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"TOUCHID_PERSISTENT_KEY_STORAGE", @"menu item to enable persisntent touchid key storage")
                              action:NULL
                       keyEquivalent:@""];
-  
+
   disabledItem.tag = MPTouchIDKeyStorageDisabled;
   transitentItem.tag = MPTouchIDKeyStorageTransient;
   persistentItem.tag = MPTouchIDKeyStoragePersistent;
-  
+
+#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
+  [touchIDMenu addItem:disabledItem];
+  [touchIDMenu addItem:transitentItem];
+  [touchIDMenu addItem:persistentItem];
+#else
   touchIDMenu.itemArray = @[disabledItem, transitentItem, persistentItem];
+#endif
+  
   self.touchIdModeButton.menu = touchIDMenu;
   [self.touchIdModeButton bind:NSSelectedTagBinding
                          toObject:NSUserDefaultsController.sharedUserDefaultsController
@@ -115,10 +122,12 @@
                       withKeyPath:[MPSettingsHelper defaultControllerPathForKey:kMPSettingsKeyTouchIdEnabled]
                           options:nil];
   self.touchIdEnabledButton.hidden = YES;
-  if (@available(macOS 10.13.4, *)) {
+  
+#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
+#else
     self.touchIdEnabledButton.hidden = NO;
     [self _touchIdUpdateToolTip];
-  }
+#endif
   [self _reset];
 }
 
@@ -233,11 +242,14 @@
 
 - (void) _touchIdUpdateToolTip {
   switch(self.touchIdEnabledButton.state) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
+#else
     case NSControlStateValueOn:
       self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_ENABELD", @"Tooltip displayed when TouchID is is fully enabeld");
     case NSControlStateValueOff:
       self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_DISABLED", @"Tooltip displayed when TouchID is disabled");
     case NSControlStateValueMixed:
+#endif
     default:
       self.touchIdEnabledButton.toolTip = NSLocalizedString(@"TOOLTIP_TOUCHID_TRANSIENT", @"Tooltip displayed when TouchID is in transient (inmemory) mode");
   }

@@ -14,6 +14,15 @@
 
 @implementation MPTabViewController
 
+#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+  self = [super initWithNibName:(NSString *)nibNameOrNil bundle:nibBundleOrNil];
+  if(self) {
+    _tabViewSizes = [[NSMutableDictionary alloc] init];
+  }
+  return self;
+}
+#else
 - (instancetype)initWithNibName:(NSNibName)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if(self) {
@@ -21,7 +30,7 @@
   }
   return self;
 }
-
+#endif
 - (instancetype)initWithCoder:(NSCoder *)coder {
   self = [super initWithCoder:coder];
   if(self) {
@@ -41,7 +50,8 @@
 - (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem {
   [super tabView:tabView willSelectTabViewItem:tabViewItem];
   if(tabViewItem.view) {
-    self.tabViewSizes[tabViewItem.identifier] = @(tabViewItem.view.frame.size);
+    NSValue *boxedSize = [NSValue valueWithSize:(NSSize)tabViewItem.view.frame.size];
+    self.tabViewSizes[tabViewItem.identifier] = @[boxedSize];
   }
   if(self.willSelectTabHandler) {
     self.willSelectTabHandler(tabViewItem);
