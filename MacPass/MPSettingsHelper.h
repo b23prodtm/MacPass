@@ -132,19 +132,18 @@ typedef NS_ENUM(NSUInteger, MPFaviconDownloadMethod) {
 // the values are mapped to NSControlStateValue for backwards compatibilty
 // older implementations did use a checkbox to store this setting
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-@available(macOS 10.13, *, *)
 typedef NS_ENUM(NSInteger, MPTouchIDKeyStorage) {
   MPTouchIDKeyStorageTransient = NSControlStateValueMixed,
   MPTouchIDKeyStorageDisabled = NSControlStateValueOff,
   MPTouchIDKeyStoragePersistent = NSControlStateValueOn
 };
-@available(macOS 10.13, unavailable, *)
-#endif
+#else
 typedef NS_ENUM(NSInteger, MPTouchIDKeyStorage) {
   MPTouchIDKeyStorageTransient = NSMixedState,
   MPTouchIDKeyStorageDisabled = NSOffState,
   MPTouchIDKeyStoragePersistent = NSOnState
 };
+#endif
 
 /* Password Generation */
 APPKIT_EXTERN NSString *const kMPSettingsKeyCopyGeneratedPasswordToClipboard;

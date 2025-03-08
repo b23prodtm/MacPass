@@ -29,18 +29,16 @@
 
 + (NSImage *)icon:(MPIconType)type {
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
-  if(@available(macOS 11, *, *)) {
-    static NSDictionary *symbols;
-    if(!symbols) {
-      symbols = MPIconHelper.availableSymbolNames;
-    }
-    if([symbols.allKeys containsObject:@(type)]) {
-      NSString *imageName = symbols[@(type)];
-      
-      NSImage *image = [NSImage imageWithSystemSymbolName:imageName accessibilityDescription:nil];
-      if(image) {
-        return image;
-      }
+  static NSDictionary *symbols;
+  if(!symbols) {
+    symbols = MPIconHelper.availableSymbolNames;
+  }
+  if([symbols.allKeys containsObject:@(type)]) {
+    NSString *imageName = symbols[@(type)];
+    
+    NSImage *image = [NSImage imageWithSystemSymbolName:imageName accessibilityDescription:nil];
+    if(image) {
+      return image;
     }
   }
 #endif
@@ -191,11 +189,10 @@
   });
   
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
-  if(@available(macOS 11, *, *))
     return symbolNames;
-  else
-#endif
+#else
     return nil;
+#endif
 }
 
 

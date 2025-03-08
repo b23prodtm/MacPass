@@ -18,15 +18,14 @@
 
 @implementation MPWelcomeViewController
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-@available(macOS 10.13, *, *)
 - (NSNibName)nibName {
   return @"WelcomeView";
 }
-@available(macOS 10.13, unavailable, *)
-#endif
+#else
 - (NSString *)nibName {
   return (NSString *)@"WelcomeView";
 }
+#endif
 
 - (void)viewWillAppear {
   [super viewWillAppear];

@@ -23,7 +23,6 @@
 @synthesize isEditor = _isEditor;
 
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-@available(macOS 10.13, *, *)
 - (instancetype)initWithNibName:(NSNibName)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if(self) {
@@ -32,8 +31,7 @@
   }
   return self;
 }
-@available(macOS 10.13, unavailable, *)
-#endif
+#else
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:(NSString *)nibNameOrNil bundle:nibBundleOrNil];
   if(self) {
@@ -42,6 +40,8 @@
   }
   return self;
 }
+#endif
+
 - (instancetype)initWithCoder:(NSCoder *)coder {
   self = [super initWithCoder:coder];
   // set editor to false?

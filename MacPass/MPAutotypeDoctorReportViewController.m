@@ -11,15 +11,14 @@
 
 @implementation MPAutotypeDoctorReportViewController
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-@available(macOS 10.13, *, *)
 - (NSNibName)nibName {
   return @"AutotypeDoctorReportViewController";
 }
-@available(macOS 10.13, unavailable, *)
-#endif
+#else
 - (NSString *)nibName {
   return (NSString *)@"AutotypeDoctorReportViewController";
 }
+#endif
 
 - (void)viewDidLoad {
   [super viewDidLoad];

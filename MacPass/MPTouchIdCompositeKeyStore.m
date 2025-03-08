@@ -99,16 +99,12 @@
     return transientKey == nil ? persistentKey : transientKey;
   }
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  if(@available(macOS 10.13, *, *)) {
-    if(touchIdMode == NSControlStateValueOn) {
-      return persistentKey;
-    }
-  } else {
-#endif
-    if(touchIdMode == NSOnState) {
-      return persistentKey;
-    }
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+  if(touchIdMode == NSControlStateValueOn) {
+    return persistentKey;
+  }
+#else
+  if(touchIdMode == NSOnState) {
+    return persistentKey;
   }
 #endif
   return transientKey;
@@ -213,50 +209,47 @@
   NSData* privateKeyTag = [MPTouchIdUnlockPrivateKeyTag dataUsingEncoding:NSUTF8StringEncoding];
   SecAccessControlRef access = NULL;
 #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  if(@available(macOS 10.13, *, *)) {
-    SecAccessControlCreateFlags flags = kSecAccessControlBiometryCurrentSet;
+  SecAccessControlCreateFlags flags = kSecAccessControlBiometryCurrentSet;
   #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
-    if(@available(macOS 10.15, *, *))
-      flags |= kSecAccessControlWatch | kSecAccessControlOr;
+    flags |= kSecAccessControlWatch | kSecAccessControlOr;
   #endif
-    access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
-                                             kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                                             flags,
-                                             &error);
-    if(access == NULL) {
-      NSError *err = CFBridgingRelease(error);
-      NSLog(@"Error while trying to create AccessControl for TouchID unlock feature: %@", [err description]);
-      return;
-    }
-    NSDictionary* attributes = @{
-      (id)kSecAttrKeyType:        (id)kSecAttrKeyTypeRSA,
-      (id)kSecAttrKeySizeInBits:  @2048,
-      (id)kSecAttrSynchronizable: @NO,
-      (id)kSecPrivateKeyAttrs:
-           @{ (id)kSecAttrIsPermanent:    @YES,
-              (id)kSecAttrApplicationTag: privateKeyTag,
-              (id)kSecAttrLabel: privateKeyLabel,
-              (id)kSecAttrAccessControl:  (__bridge id)access
-            },
-      (id)kSecPublicKeyAttrs:
-           @{ (id)kSecAttrIsPermanent:    @YES,
-              (id)kSecAttrApplicationTag: publicKeyTag,
-              (id)kSecAttrLabel: publicKeyLabel,
-            },
-    };
-    SecKeyRef result = SecKeyCreateRandomKey((__bridge CFDictionaryRef)attributes, &error);
-    if(result == NULL) {
-      NSError *err = CFBridgingRelease(error);
-      NSLog(@"Error while trying to create a RSA keypair for TouchID unlock feature: %@", [err description]);
-    }
-    else {
-      CFRelease(result);
-    }
-    CFRelease(access);
-    }
-  } else
-#endif
+  access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+                                           kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                           flags,
+                                           &error);
+  if(access == NULL) {
+    NSError *err = CFBridgingRelease(error);
+    NSLog(@"Error while trying to create AccessControl for TouchID unlock feature: %@", [err description]);
     return;
+  }
+  NSDictionary* attributes = @{
+    (id)kSecAttrKeyType:        (id)kSecAttrKeyTypeRSA,
+    (id)kSecAttrKeySizeInBits:  @2048,
+    (id)kSecAttrSynchronizable: @NO,
+    (id)kSecPrivateKeyAttrs:
+         @{ (id)kSecAttrIsPermanent:    @YES,
+            (id)kSecAttrApplicationTag: privateKeyTag,
+            (id)kSecAttrLabel: privateKeyLabel,
+            (id)kSecAttrAccessControl:  (__bridge id)access
+          },
+    (id)kSecPublicKeyAttrs:
+         @{ (id)kSecAttrIsPermanent:    @YES,
+            (id)kSecAttrApplicationTag: publicKeyTag,
+            (id)kSecAttrLabel: publicKeyLabel,
+          },
+  };
+  SecKeyRef result = SecKeyCreateRandomKey((__bridge CFDictionaryRef)attributes, &error);
+  if(result == NULL) {
+    NSError *err = CFBridgingRelease(error);
+    NSLog(@"Error while trying to create a RSA keypair for TouchID unlock feature: %@", [err description]);
+  }
+  else {
+    CFRelease(result);
+  }
+  CFRelease(access);
+  }
+#endif
+  return;
 }
 
 - (NSData *)_persitentCompositeKeyDataForDocumentKey:(NSString *)key {
