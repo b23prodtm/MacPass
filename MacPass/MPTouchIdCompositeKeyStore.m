@@ -98,15 +98,15 @@
   if(nil == transientKey || nil == persistentKey) {
     return transientKey == nil ? persistentKey : transientKey;
   }
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  if(touchIdMode == NSControlStateValueOn) {
-    return persistentKey;
-  }
-#else
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  if(touchIdMode == NSControlStateValueOn) {
+//    return persistentKey;
+//  }
+//#else
   if(touchIdMode == NSOnState) {
     return persistentKey;
   }
-#endif
+//#endif
   return transientKey;
 }
 
@@ -208,46 +208,46 @@
   NSData* publicKeyTag =  [MPTouchIdUnlockPublicKeyTag  dataUsingEncoding:NSUTF8StringEncoding];
   NSData* privateKeyTag = [MPTouchIdUnlockPrivateKeyTag dataUsingEncoding:NSUTF8StringEncoding];
   SecAccessControlRef access = NULL;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  SecAccessControlCreateFlags flags = kSecAccessControlBiometryCurrentSet;
-  #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
-    flags |= kSecAccessControlWatch | kSecAccessControlOr;
-  #endif
-  access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
-                                           kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-                                           flags,
-                                           &error);
-  if(access == NULL) {
-    NSError *err = CFBridgingRelease(error);
-    NSLog(@"Error while trying to create AccessControl for TouchID unlock feature: %@", [err description]);
-    return;
-  }
-  NSDictionary* attributes = @{
-    (id)kSecAttrKeyType:        (id)kSecAttrKeyTypeRSA,
-    (id)kSecAttrKeySizeInBits:  @2048,
-    (id)kSecAttrSynchronizable: @NO,
-    (id)kSecPrivateKeyAttrs:
-         @{ (id)kSecAttrIsPermanent:    @YES,
-            (id)kSecAttrApplicationTag: privateKeyTag,
-            (id)kSecAttrLabel: privateKeyLabel,
-            (id)kSecAttrAccessControl:  (__bridge id)access
-          },
-    (id)kSecPublicKeyAttrs:
-         @{ (id)kSecAttrIsPermanent:    @YES,
-            (id)kSecAttrApplicationTag: publicKeyTag,
-            (id)kSecAttrLabel: publicKeyLabel,
-          },
-  };
-  SecKeyRef result = SecKeyCreateRandomKey((__bridge CFDictionaryRef)attributes, &error);
-  if(result == NULL) {
-    NSError *err = CFBridgingRelease(error);
-    NSLog(@"Error while trying to create a RSA keypair for TouchID unlock feature: %@", [err description]);
-  }
-  else {
-    CFRelease(result);
-  }
-  CFRelease(access);
-#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  SecAccessControlCreateFlags flags = kSecAccessControlBiometryCurrentSet;
+//  #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
+//    flags |= kSecAccessControlWatch | kSecAccessControlOr;
+//  #endif
+//  access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+//                                           kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+//                                           flags,
+//                                           &error);
+//  if(access == NULL) {
+//    NSError *err = CFBridgingRelease(error);
+//    NSLog(@"Error while trying to create AccessControl for TouchID unlock feature: %@", [err description]);
+//    return;
+//  }
+//  NSDictionary* attributes = @{
+//    (id)kSecAttrKeyType:        (id)kSecAttrKeyTypeRSA,
+//    (id)kSecAttrKeySizeInBits:  @2048,
+//    (id)kSecAttrSynchronizable: @NO,
+//    (id)kSecPrivateKeyAttrs:
+//         @{ (id)kSecAttrIsPermanent:    @YES,
+//            (id)kSecAttrApplicationTag: privateKeyTag,
+//            (id)kSecAttrLabel: privateKeyLabel,
+//            (id)kSecAttrAccessControl:  (__bridge id)access
+//          },
+//    (id)kSecPublicKeyAttrs:
+//         @{ (id)kSecAttrIsPermanent:    @YES,
+//            (id)kSecAttrApplicationTag: publicKeyTag,
+//            (id)kSecAttrLabel: publicKeyLabel,
+//          },
+//  };
+//  SecKeyRef result = SecKeyCreateRandomKey((__bridge CFDictionaryRef)attributes, &error);
+//  if(result == NULL) {
+//    NSError *err = CFBridgingRelease(error);
+//    NSLog(@"Error while trying to create a RSA keypair for TouchID unlock feature: %@", [err description]);
+//  }
+//  else {
+//    CFRelease(result);
+//  }
+//  CFRelease(access);
+//#endif
   return;
 }
 

@@ -28,11 +28,11 @@ uint16_t const kMPUnknownKeyCode = UINT16_MAX;
 
 - (MPModifiedKey)modifiedKeyValue {
   MPModifiedKey key;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  [self getValue:&key size:sizeof(MPModifiedKey)];
-#else
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  [self getValue:&key size:sizeof(MPModifiedKey)];
+//#else
   [self getValue:&key];
-#endif
+//#endif
   return key;
 }
 

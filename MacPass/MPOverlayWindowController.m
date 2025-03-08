@@ -65,9 +65,9 @@
   self.textField.cell.backgroundStyle = NSBackgroundStyleLowered;
   self.imageView.cell.backgroundStyle = NSBackgroundStyleRaised;
   ((NSImageCell *)self.imageView.cell).imageAlignment = NSImageAlignCenter;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
-  self.imageView.contentTintColor = NSColor.textColor;
-#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+//  self.imageView.contentTintColor = NSColor.textColor;
+//#endif
   }
 
 - (void)displayOverlayImage:(NSImage *)imageOrNil label:(NSString *)labelOrNil atView:(NSView *)view {

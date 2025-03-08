@@ -14,15 +14,15 @@
 
 @implementation MPTabViewController
 
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-- (instancetype)initWithNibName:(NSNibName)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-  if(self) {
-    _tabViewSizes = [[NSMutableDictionary alloc] init];
-  }
-  return self;
-}
-#else
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//- (instancetype)initWithNibName:(NSNibName)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+//  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//  if(self) {
+//    _tabViewSizes = [[NSMutableDictionary alloc] init];
+//  }
+//  return self;
+//}
+//#else
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:(NSString *)nibNameOrNil bundle:nibBundleOrNil];
   if(self) {
@@ -30,7 +30,7 @@
   }
   return self;
 }
-#endif
+//#endif
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
   self = [super initWithCoder:coder];

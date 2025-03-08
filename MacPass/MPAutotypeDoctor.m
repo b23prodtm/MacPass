@@ -68,54 +68,54 @@
    Solution is heavily inspired by Craig Hockenberry's
    https://stackoverflow.com/questions/56597221/detecting-screen-recording-settings-on-macos-catalina/58985069#58985069
    */
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
-  CFArrayRef windowList = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
-  NSUInteger numberOfWindows = CFArrayGetCount(windowList);
-  BOOL canRecordScreen = NO;
-  for(int idx = 0; idx < numberOfWindows; idx++) {
-    NSDictionary *windowInfo = (NSDictionary *)CFArrayGetValueAtIndex(windowList, idx);
-    NSNumber *ownerPid = windowInfo[(id)kCGWindowOwnerPID];
-    /*
-     Skip over our own windows
-     */
-    if(ownerPid.intValue == NSProcessInfo.processInfo.processIdentifier) {
-      continue;
-    }
-    /*
-     Skip applications we aren't allowed to access anyway
-     */
-    NSRunningApplication *ownerApp = [NSRunningApplication runningApplicationWithProcessIdentifier:ownerPid.intValue];
-    if(!ownerApp) {
-      continue;
-    }
-    NSString *windowName = windowInfo[(id)kCGWindowName];
-    if(windowName) {
-      if([ownerApp.executableURL.lastPathComponent isEqualToString:@"Dock"]) {
-        continue;
-      }
-      canRecordScreen = YES;
-      break;
-    }
-  }
-  CFRelease(windowList);
-  if(!canRecordScreen && error) {
-    *error = [NSError errorInDomain:MPAutotypeErrorDomain withCode:MPErrorAutotypeIsMissingScreenRecordingPermissions description:NSLocalizedString(@"ERROR_NO_PERMISSION_TO_RECORD_SCREEN", "Error description for missing screen recording permissions")];
-  }
-  return canRecordScreen;
-#else
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  CFArrayRef windowList = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
+//  NSUInteger numberOfWindows = CFArrayGetCount(windowList);
+//  BOOL canRecordScreen = NO;
+//  for(int idx = 0; idx < numberOfWindows; idx++) {
+//    NSDictionary *windowInfo = (NSDictionary *)CFArrayGetValueAtIndex(windowList, idx);
+//    NSNumber *ownerPid = windowInfo[(id)kCGWindowOwnerPID];
+//    /*
+//     Skip over our own windows
+//     */
+//    if(ownerPid.intValue == NSProcessInfo.processInfo.processIdentifier) {
+//      continue;
+//    }
+//    /*
+//     Skip applications we aren't allowed to access anyway
+//     */
+//    NSRunningApplication *ownerApp = [NSRunningApplication runningApplicationWithProcessIdentifier:ownerPid.intValue];
+//    if(!ownerApp) {
+//      continue;
+//    }
+//    NSString *windowName = windowInfo[(id)kCGWindowName];
+//    if(windowName) {
+//      if([ownerApp.executableURL.lastPathComponent isEqualToString:@"Dock"]) {
+//        continue;
+//      }
+//      canRecordScreen = YES;
+//      break;
+//    }
+//  }
+//  CFRelease(windowList);
+//  if(!canRecordScreen && error) {
+//    *error = [NSError errorInDomain:MPAutotypeErrorDomain withCode:MPErrorAutotypeIsMissingScreenRecordingPermissions description:NSLocalizedString(@"ERROR_NO_PERMISSION_TO_RECORD_SCREEN", "Error description for missing screen recording permissions")];
+//  }
+//  return canRecordScreen;
+//#else
   return YES;
-#endif
+//#endif
 }
 
 - (BOOL)hasAccessibiltyPermissions:(NSError *__autoreleasing*)error {
   BOOL isTrusted = YES;
   /* macOS 10.13 and lower allows us to send key events regardless of accessibilty trust */
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
-  isTrusted = AXIsProcessTrusted();
-  if(!isTrusted && error) {
-    *error = [NSError errorInDomain:MPAutotypeErrorDomain withCode:MPErrorAutotypeIsMissingAccessibiltyPermissions description:NSLocalizedString(@"ERROR_NO_ACCESSIBILITY_PERMISSIONS", "Error description for missing accessibility permissions")];
-  }
-#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+//  isTrusted = AXIsProcessTrusted();
+//  if(!isTrusted && error) {
+//    *error = [NSError errorInDomain:MPAutotypeErrorDomain withCode:MPErrorAutotypeIsMissingAccessibiltyPermissions description:NSLocalizedString(@"ERROR_NO_ACCESSIBILITY_PERMISSIONS", "Error description for missing accessibility permissions")];
+//  }
+//#endif
   return isTrusted;
 }
 
@@ -129,18 +129,18 @@
 
 - (void)requestScreenRecordingPermission {
   /* macos 10.14 and lower do not require screen recording permission to get window titles */
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
-  /*
-   To minimize the intrusion just make a 1px image of the upper left corner
-   This way there is no real possibilty to access any private data
-   */
-  CGImageRef screenshot = CGWindowListCreateImage(
-                                                  CGRectMake(0, 0, 1, 1),
-                                                  kCGWindowListOptionOnScreenOnly,
-                                                  kCGNullWindowID,
-                                                  kCGWindowImageDefault);
-  CFRelease(screenshot);
-#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
+//  /*
+//   To minimize the intrusion just make a 1px image of the upper left corner
+//   This way there is no real possibilty to access any private data
+//   */
+//  CGImageRef screenshot = CGWindowListCreateImage(
+//                                                  CGRectMake(0, 0, 1, 1),
+//                                                  kCGWindowListOptionOnScreenOnly,
+//                                                  kCGNullWindowID,
+//                                                  kCGWindowImageDefault);
+//  CFRelease(screenshot);
+//#endif
 }
 
 - (void)openAutomationPreferences {

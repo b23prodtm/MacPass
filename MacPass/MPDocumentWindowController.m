@@ -100,18 +100,18 @@ typedef void (^MPPasswordChangedBlock)(BOOL didChangePassword);
   [super windowDidLoad];
   
   self.window.delegate = self.documentWindowDelegate;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
-  /* let the user decide how to dipsplay the toolbar */
-  BOOL useUnifiedToolbar = [NSUserDefaults.standardUserDefaults boolForKey:kMPSettingsKeyUseUnifiedToolbar];
-  if(useUnifiedToolbar) {
-    self.window.toolbarStyle = NSWindowToolbarStyleAutomatic;
-    // Do not use full size since the sidebar takes too much room!
-    // self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
-  }
-  else {
-    self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
-  }
-#endif
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+//  /* let the user decide how to dipsplay the toolbar */
+//  BOOL useUnifiedToolbar = [NSUserDefaults.standardUserDefaults boolForKey:kMPSettingsKeyUseUnifiedToolbar];
+//  if(useUnifiedToolbar) {
+//    self.window.toolbarStyle = NSWindowToolbarStyleAutomatic;
+//    // Do not use full size since the sidebar takes too much room!
+//    // self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+//  }
+//  else {
+//    self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
+//  }
+//#endif
   [self.window registerForDraggedTypes:@[NSURLPboardType]];
   
   MPDocument *document = self.document;
@@ -129,11 +129,11 @@ typedef void (^MPPasswordChangedBlock)(BOOL didChangePassword);
   self.toolbar.autosavesConfiguration = YES;
   self.toolbar.allowsUserCustomization = YES;
   /* center search in toolbar */
-#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
-  self.toolbar.centeredItemIdentifier = MPToolbarItemIdentifierSearch;
-#else
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+//  self.toolbar.centeredItemIdentifier = MPToolbarItemIdentifierSearch;
+//#else
   // to not do any magic here
-#endif
+//#endif
   self.toolbar.delegate = self.toolbarDelegate;
   self.window.toolbar = self.toolbar;
   self.toolbarDelegate.toolbar = self.toolbar;
