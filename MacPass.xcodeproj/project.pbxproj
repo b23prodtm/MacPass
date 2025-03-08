@@ -296,7 +296,6 @@
 		4CE4FFA72746955E00789F75 /* MPSecurityDatabaseSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE4FFA52746955E00789F75 /* MPSecurityDatabaseSettingsViewController.m */; };
 		4CE4FFA82746955E00789F75 /* MPSecurityDatabaseSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CE4FFA62746955E00789F75 /* MPSecurityDatabaseSettingsViewController.xib */; };
 		4CE4FFAC2746956F00789F75 /* MPGeneralDatabaseSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE4FFAA2746956F00789F75 /* MPGeneralDatabaseSettingsViewController.m */; };
-		4CE4FFAD2746956F00789F75 /* MPGeneralDatabaseSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CE4FFAB2746956F00789F75 /* MPGeneralDatabaseSettingsViewController.xib */; };
 		4CE501341BBC47F500FB819D /* MPTagsTokenFieldDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE501331BBC47F500FB819D /* MPTagsTokenFieldDelegate.m */; };
 		4CE5B54B173AFBA700207B39 /* MPDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE5B549173AFBA700207B39 /* MPDocument.m */; };
 		4CE8246F16E2E93400573141 /* MPOverlayWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8246E16E2E93400573141 /* MPOverlayWindowController.m */; };
@@ -2151,7 +2150,6 @@
 				4C586F9E16D07ABD00E7DB57 /* 00_PasswordTemplate.pdf in Resources */,
 				FA13910C1F9CD9EB0033D256 /* Localizable.stringsdict in Resources */,
 				4C586FA016D07D7200E7DB57 /* 01_PackageNetworkTemplate.pdf in Resources */,
-				4CE4FFAD2746956F00789F75 /* MPGeneralDatabaseSettingsViewController.xib in Resources */,
 				4C3826CB1AD04D8E007D7D67 /* 64_AppleTemplate.pdf in Resources */,
 				4C3826AA1AD04D8E007D7D67 /* 27_NFSUnmountTemplate.pdf in Resources */,
 				4C3826C31AD04D8E007D7D67 /* 56_AddressBookTemplate.pdf in Resources */,
