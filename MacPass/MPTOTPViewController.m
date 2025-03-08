@@ -39,7 +39,7 @@
 
 
 - (void)setRepresentedObject:(id)representedObject {
-  NSArray *notificationNames = @[KPKWillAddAttributeNotification, KPKDidAddAttributeNotification, KPKWillChangeAttributeNotification, KPKDidChangeAttributeNotification, KPKWillRemoveAttributeNotification, KPKDidRemoveAttributeNotification];
+  NSArray *notificationNames = @[KPKTreeWillAddEntryNotification, KPKTreeDidAddEntryNotification, KPKTreeWillAddGroupNotification, KPKTreeDidAddGroupNotification, KPKTreeWillRemoveEntryNotification, KPKTreeDidRemoveEntryNotification];
   if(self.representedObject) {
     for(NSString *notificationName in notificationNames) {
       [NSNotificationCenter.defaultCenter removeObserver:self name:notificationName object:self.representedObject];

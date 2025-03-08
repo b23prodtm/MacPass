@@ -27,12 +27,16 @@
 - (void)setBackgroundStyle:(NSBackgroundStyle)backgroundStyle {
   super.backgroundStyle = backgroundStyle;
   switch(backgroundStyle) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
     case NSBackgroundStyleNormal:
+#endif
     case NSBackgroundStyleLowered:
       self.addionalTextField.textColor = NSColor.disabledControlTextColor;
       break;
     case NSBackgroundStyleRaised:
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
     case NSBackgroundStyleEmphasized:
+#endif
       self.addionalTextField.textColor = NSColor.selectedControlTextColor;
       break;
   }

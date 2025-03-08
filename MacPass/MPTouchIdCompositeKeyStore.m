@@ -98,9 +98,15 @@
   if(nil == transientKey || nil == persistentKey) {
     return transientKey == nil ? persistentKey : transientKey;
   }
+#if __MAC_OS_X_VERSION_MAX_ALLOWED <= 101300
+  if(touchIdMode == NSOnState) {
+    return persistentKey;
+  }
+#else
   if(touchIdMode == NSControlStateValueOn) {
     return persistentKey;
   }
+#endif
   return transientKey;
 }
 
@@ -202,11 +208,11 @@
   NSData* publicKeyTag =  [MPTouchIdUnlockPublicKeyTag  dataUsingEncoding:NSUTF8StringEncoding];
   NSData* privateKeyTag = [MPTouchIdUnlockPrivateKeyTag dataUsingEncoding:NSUTF8StringEncoding];
   SecAccessControlRef access = NULL;
-  if (@available(macOS 10.13.4, *)) {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
     SecAccessControlCreateFlags flags = kSecAccessControlBiometryCurrentSet;
-    if (@available(macOS 10.15, *)) {
+  #if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101500
       flags |= kSecAccessControlWatch | kSecAccessControlOr;
-    }
+  #endif
     access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
                                              kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
                                              flags,
@@ -241,10 +247,9 @@
       CFRelease(result);
     }
     CFRelease(access);
-  }
-  else {
+#else
     return;
-  }
+#endif
 }
 
 - (NSData *)_persitentCompositeKeyDataForDocumentKey:(NSString *)key {

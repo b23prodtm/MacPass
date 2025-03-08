@@ -16,7 +16,7 @@
 
 @property (weak) IBOutlet NSTextField *databaseNameTextField;
 @property (weak) IBOutlet NSPopUpButton *databaseCompressionPopupButton;
-@property (weak) IBOutlet NSTextView *databaseDescriptionTextView;
+@property IBOutlet NSTextView *databaseDescriptionTextView;
 @property (weak) IBOutlet NSColorWell *databaseColorColorWell;
 @property (weak) IBOutlet NSTextField *fileVersionTextField;
 
