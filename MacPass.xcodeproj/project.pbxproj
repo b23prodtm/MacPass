@@ -244,7 +244,7 @@
 		4CA78C001FD58C92003C8560 /* MPPluginRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA78BFF1FD58C92003C8560 /* MPPluginRepository.m */; };
 		4CAAA8271D787B8B00CDE977 /* MPAutotypeBuilderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAAA8251D787B8B00CDE977 /* MPAutotypeBuilderViewController.m */; };
 		4CAD338F205169D30068587E /* MPPluginRepositoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAD338E205169D30068587E /* MPPluginRepositoryItem.m */; };
-		4CAD45312519E99E00D0D788 /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD45302519E99E00D0D788 /* KissXML.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		4CAD45312519E99E00D0D788 /* KissXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD45302519E99E00D0D788 /* KissXML.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		4CAD45322519E9A900D0D788 /* KissXML.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4CAD45302519E99E00D0D788 /* KissXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4CAD748C15B889B700104512 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD748B15B889B700104512 /* Security.framework */; };
 		4CAD748E15B88AC100104512 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD748D15B88AC100104512 /* libz.dylib */; };
@@ -1237,6 +1237,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C7B637D1C0CB55600D7038C /* Sparkle.framework in Frameworks */,
 				4CCA8E9B18D91ED9001A6754 /* Quartz.framework in Frameworks */,
 				4C00E33B17D8FAC100F37192 /* Carbon.framework in Frameworks */,
 				4CAD748E15B88AC100104512 /* libz.dylib in Frameworks */,
@@ -1247,7 +1248,6 @@
 				4CAD45312519E99E00D0D788 /* KissXML.framework in Frameworks */,
 				4C77E36715B84A240093A587 /* Cocoa.framework in Frameworks */,
 				486987742D74DFCB0020025A /* DDHotKey.framework in Frameworks */,
-				4C7B637D1C0CB55600D7038C /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

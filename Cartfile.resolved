@@ -1,6 +1,6 @@
 github "b23prodtm/DDHotKey" "1.0"
 github "b23prodtm/HNHUi" "6.0.1011"
 github "b23prodtm/KeePassKit" "3.3.21011"
+github "b23prodtm/KissXML" "5.3.3"
 github "b23prodtm/Sparkle" "1.27.1011"
 github "b23prodtm/TransformerKit" "1.1.1011"
-github "robbiehanson/KissXML" "5.3.3"
