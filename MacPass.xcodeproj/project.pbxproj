@@ -13,6 +13,8 @@
 		486987742D74DFCB0020025A /* DDHotKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 486987712D74DFCA0020025A /* DDHotKey.framework */; };
 		486987752D74DFCB0020025A /* DDHotKey.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 486987712D74DFCA0020025A /* DDHotKey.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4869883D2D752EBB0020025A /* KeePassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4869883C2D752EBB0020025A /* KeePassKit.framework */; };
+		48754EBE2D83677100F7A62C /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48754EBB2D83675300F7A62C /* Sparkle.framework */; };
+		48754EBF2D83677100F7A62C /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 48754EBB2D83675300F7A62C /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		488FD33B2D74C9CF00CEA188 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 488FD3302D74C9CE00CEA188 /* LICENSE.txt */; };
 		488FD33C2D74C9CF00CEA188 /* acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 488FD3332D74C9CF00CEA188 /* acknowledgements.html */; };
 		488FD33D2D74C9CF00CEA188 /* acknowledgements.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 488FD3342D74C9CF00CEA188 /* acknowledgements.pdf */; };
@@ -201,9 +203,7 @@
 		4C7ABA4B17BAEC6700FF5799 /* 19_EmailTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4C7ABA4617BAEC6700FF5799 /* 19_EmailTemplate.pdf */; };
 		4C7ABA4C17BAEC6700FF5799 /* 20_MiscTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4C7ABA4717BAEC6700FF5799 /* 20_MiscTemplate.pdf */; };
 		4C7ABA4E17BAEC7000FF5799 /* addEntryTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4C7ABA4D17BAEC7000FF5799 /* addEntryTemplate.pdf */; };
-		4C7B637D1C0CB55600D7038C /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7B637A1C0CB55600D7038C /* Sparkle.framework */; };
 		4C7B637F1C0CB57300D7038C /* KeePassKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4C7B63791C0CB55600D7038C /* KeePassKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4C7B63801C0CB57300D7038C /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4C7B637A1C0CB55600D7038C /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4C7BD07619FE94C900C7AA5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C7BD07519FE94C900C7AA5C /* Assets.xcassets */; };
 		4C7D9D5424ABE6FD00907034 /* MPTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7D9D5324ABE6FD00907034 /* MPTabViewController.m */; };
 		4C7F8B681A10B68400CCB83D /* WelcomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7F8B6A1A10B68400CCB83D /* WelcomeView.xib */; };
@@ -348,9 +348,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4CAD45322519E9A900D0D788 /* KissXML.framework in CopyFiles */,
+				48754EBF2D83677100F7A62C /* Sparkle.framework in CopyFiles */,
 				4CD60C131C104AD4005BE5F8 /* HNHUi.framework in CopyFiles */,
 				4C7B637F1C0CB57300D7038C /* KeePassKit.framework in CopyFiles */,
-				4C7B63801C0CB57300D7038C /* Sparkle.framework in CopyFiles */,
 				486987752D74DFCB0020025A /* DDHotKey.framework in CopyFiles */,
 				4CBC5DDE23C61C8900D14B92 /* TransformerKit.framework in CopyFiles */,
 			);
@@ -386,6 +386,7 @@
 		486987702D74DFCA0020025A /* HNHUi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HNHUi.framework; path = Carthage/Build/Mac/HNHUi.framework; sourceTree = "<group>"; };
 		486987712D74DFCA0020025A /* DDHotKey.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DDHotKey.framework; path = Carthage/Build/Mac/DDHotKey.framework; sourceTree = "<group>"; };
 		4869883C2D752EBB0020025A /* KeePassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeePassKit.framework; path = Carthage/Build/Mac/KeePassKit.framework; sourceTree = "<group>"; };
+		48754EBB2D83675300F7A62C /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Carthage/Build/Mac/Sparkle.framework; sourceTree = "<group>"; };
 		488FD32F2D74C9CE00CEA188 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		488FD3302D74C9CE00CEA188 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		488FD3332D74C9CF00CEA188 /* acknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = acknowledgements.html; sourceTree = "<group>"; };
@@ -1240,13 +1241,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C7B637D1C0CB55600D7038C /* Sparkle.framework in Frameworks */,
+				4869883D2D752EBB0020025A /* KeePassKit.framework in Frameworks */,
 				4CCA8E9B18D91ED9001A6754 /* Quartz.framework in Frameworks */,
 				4C00E33B17D8FAC100F37192 /* Carbon.framework in Frameworks */,
 				4CAD748E15B88AC100104512 /* libz.dylib in Frameworks */,
 				486987722D74DFCA0020025A /* HNHUi.framework in Frameworks */,
-				4869883D2D752EBB0020025A /* KeePassKit.framework in Frameworks */,
 				4CAD748C15B889B700104512 /* Security.framework in Frameworks */,
+				48754EBE2D83677100F7A62C /* Sparkle.framework in Frameworks */,
 				4CBC5DDD23C61C8900D14B92 /* TransformerKit.framework in Frameworks */,
 				4CAD45312519E99E00D0D788 /* KissXML.framework in Frameworks */,
 				4C77E36715B84A240093A587 /* Cocoa.framework in Frameworks */,
@@ -1662,6 +1663,7 @@
 		4C77E35715B84A240093A587 = {
 			isa = PBXGroup;
 			children = (
+				48754EBB2D83675300F7A62C /* Sparkle.framework */,
 				48F8D9DB2D7C961C00471CE8 /* MPMacKeyCode.h */,
 				48F8D9DC2D7C964D00471CE8 /* MPMacKeyCode.m */,
 				48F8D9902D7C403300471CE8 /* MPTouchIdCompositeKeyStore.m */,
@@ -2078,6 +2080,7 @@
 					};
 					4C77E36115B84A240093A587 = {
 						DevelopmentTeam = MDLZG8NQNK;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -3309,10 +3312,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/KeePassKit/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/KeePassKit/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/KeePassKit/Carthage/Build/tvOS",
-					"$(PROJECT_DIR)/KeePassKit/Carthage/Build/watchOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacPass/MacPass-Prefix.pch";
@@ -3344,10 +3343,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/KeePassKit/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/KeePassKit/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/KeePassKit/Carthage/Build/tvOS",
-					"$(PROJECT_DIR)/KeePassKit/Carthage/Build/watchOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacPass/MacPass-Prefix.pch";
