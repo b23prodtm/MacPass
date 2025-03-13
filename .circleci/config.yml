@@ -1,0 +1,101 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/configuration-reference
+
+# For a detailed guide to building and testing on iOS, read the docs:
+# https://circleci.com/docs/testing-ios/
+version: 2.1
+orbs:
+  macos: circleci/macos@2.4.1
+aliases:
+  - &brew
+    run: 
+      name: Install dependencies
+      command: |
+        brew install carthage
+        carthage update
+
+  - &caches
+    save_cache:
+      key: v1-dependencies-{{ checksum "Cartfile.resolved" }}
+      paths:
+        - Carthage
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
+jobs:
+  test:
+    # Specify the execution environment. 
+    # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
+    macos:
+      # Specify the Xcode version you desire here
+      # See: https://circleci.com/docs/using-macos/
+      xcode: 13.4.1
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+
+    # Add steps to the job
+    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
+    steps:
+      - macos/install-rosetta
+      # Checkout the code as the first step.
+      - checkout
+      #- run: pod install # Install CocoaPods dependencies
+      #- run: fastlane scan # Run tests using Fastlane
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Cartfile.resolved" }}
+      - *brew
+      - *caches
+      - run:
+          name: test build
+          command: |
+            xcodebuild -allowProvisioningUpdates -arch x86_64 -target MacPassTests -destination 'platform=macOS,OS=10.11,arch=x86_64' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+      # Collect XML test results data to show in the UI, and save the same XML
+      # files under test-results folder in the Artifacts tab
+      - store_test_results:
+          path: test_output
+      - store_artifacts:
+          path: test_output
+          destination: scan-output
+  build:
+    # Specify the execution environment. 
+    # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
+    macos:
+      # Specify the Xcode version you desire here
+      # See: https://circleci.com/docs/using-macos/
+      xcode: 13.4.1
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+
+    # Add steps to the job
+    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
+    steps:
+      - macos/install-rosetta
+      # Checkout the code as the first step.
+      - checkout
+      #- run: pod install # Install CocoaPods dependencies
+      #- run: fastlane scan # Run tests using Fastlane
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Cartfile.resolved" }}
+      - *brew
+      - *caches
+      - run:
+          name: build
+          command: |
+            xcodebuild -allowProvisioningUpdates -arch x86_64 -target MacPass -destination 'platform=macOS,OS=10.11,arch=x86_64' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+      - run:
+          # compress Xcode's build output so that it can be stored as an artifact
+          name: Compress app for storage
+          command: zip -r MacPass.zip build/Release/MacPass.app
+      - store_artifacts: # store this build output. Read more: https://circleci.com/docs/2.0/artifacts/
+          path: MacPass.zip
+          destination: MacPass-nightly
+
+workflows:
+  test_build:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build

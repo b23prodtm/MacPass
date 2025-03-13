@@ -28,21 +28,21 @@
 @implementation MPIconHelper
 
 + (NSImage *)icon:(MPIconType)type {
-  if (@available(macOS 11.0, *)) {
-    static NSDictionary *symbols;
-    if(!symbols) {
-      symbols = MPIconHelper.availableSymbolNames;
-    }
-    if([symbols.allKeys containsObject:@(type)]) {
-      NSString *imageName = symbols[@(type)];
-      
-      NSImage *image = [NSImage imageWithSystemSymbolName:imageName accessibilityDescription:nil];
-      if(image) {
-        return image;
-      }
-    }
-  }
-  
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+//  static NSDictionary *symbols;
+//  if(!symbols) {
+//    symbols = MPIconHelper.availableSymbolNames;
+//  }
+//  if([symbols.allKeys containsObject:@(type)]) {
+//    NSString *imageName = symbols[@(type)];
+//    
+//    NSImage *image = [NSImage imageWithSystemSymbolName:imageName accessibilityDescription:nil];
+//    if(image) {
+//      return image;
+//    }
+//  }
+//#endif
+
   static NSDictionary *icons;
   
   if(!icons) {
@@ -188,12 +188,11 @@
     };
   });
   
-  if(@available(macOS 11.0, *)) {
-    return symbolNames;
-  }
-  else {
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 110000
+//    return symbolNames;
+//#else
     return nil;
-  }
+//#endif
 }
 
 
@@ -272,7 +271,9 @@
       @(MPIconCertificat)            : @"67_CertificatTemplate",
       @(MPIconPhone)                 : @"68_PhoneTemplate",
       /* Custom */
-      @(MPIconSidebar)               : NSImageNameTouchBarGetInfoTemplate,
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//      @(MPIconSidebar)               : NSImageNameTouchBarGetInfoTemplate,
+//#endif
       @(MPIconAddFolder)             : @"addFolderTemplate",
       @(MPIconHardDisk)              : @"harddiskTemplate",
       @(MPIconCreated)               : @"createdTemplate",

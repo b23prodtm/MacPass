@@ -22,14 +22,25 @@
 
 @synthesize isEditor = _isEditor;
 
-- (instancetype)initWithNibName:(NSNibName)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//- (instancetype)initWithNibName:(NSNibName)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+//  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//  if(self) {
+//    _isEditor = NO;
+//    _isDefaultAttribute = NO;
+//  }
+//  return self;
+//}
+//#else
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+  self = [super initWithNibName:(NSString *)nibNameOrNil bundle:nibBundleOrNil];
   if(self) {
     _isEditor = NO;
     _isDefaultAttribute = NO;
   }
   return self;
 }
+//#endif
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
   self = [super initWithCoder:coder];

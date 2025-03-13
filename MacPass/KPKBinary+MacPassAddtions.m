@@ -8,16 +8,18 @@
 
 #import "KPKBinary+MacPassAddtions.h"
 
-@implementation KPKBinary (MacPassAddtions)
-
-- (NSString *)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider fileNameForType:(NSString *)fileType {
-  return self.name;
-}
-
-- (void)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider writePromiseToURL:(NSURL *)url completionHandler:(void (^)(NSError * _Nullable))completionHandler {
-  NSError *error;
-  [self saveToLocation:url error:&error];
-  completionHandler(error);
-}
-
-@end
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//@implementation KPKBinary (MacPassAddtions)
+//
+//- (NSString *)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider fileNameForType:(NSString *)fileType {
+//  return self.name;
+//}
+//
+//- (void)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider writePromiseToURL:(NSURL *)url completionHandler:(void (^)(NSError * _Nullable))completionHandler {
+//  NSError *error;
+//  [self saveToLocation:url error:&error];
+//  completionHandler(error);
+//}
+//
+//@end
+//#endif

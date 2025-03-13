@@ -120,7 +120,9 @@ NSString *const MPPasteBoardTypeSource          = @"org.nspasteboard.source";
 
 - (void)copyObjectWithoutTimeout:(id<NSPasteboardWriting>)object {
   NSPasteboardContentsOptions options = [NSUserDefaults.standardUserDefaults boolForKey:kMPSettingsKeyPreventUniversalClipboard] ? NSPasteboardContentsCurrentHostOnly : 0;
-  [NSPasteboard.generalPasteboard prepareForNewContentsWithOptions:options];
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  [NSPasteboard.generalPasteboard prepareForNewContentsWithOptions:options];
+//#endif
   [NSPasteboard.generalPasteboard writeObjects:@[object]];
   [NSPasteboard.generalPasteboard setData:nil forType:MPPasteBoardTypeConcealed]; // mark as concealed
   [NSPasteboard.generalPasteboard setString:NSRunningApplication.currentApplication.bundleIdentifier forType:MPPasteBoardTypeSource]; // set source

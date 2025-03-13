@@ -22,13 +22,27 @@
 
 @implementation MPDocumentSplitViewController
 
-- (NSNibName)nibName {
-  return @"DocumentSplitView";
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101400
+//- (NSNibName)nibName {
+//  return @"DocumentSplitView";
+//  
+//}
+//- (instancetype)initWithNibName:(NSNibName)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+//  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//  if(self) {
+//    _outlineViewController = [[MPOutlineViewController alloc] init];
+//    _entryViewController = [[MPEntryViewController alloc] init];
+//    _inspectorViewController = [[MPInspectorViewController alloc] init];
+//  }
+//  return self;
+//}
+//#else
+- (NSString *)nibName {
+  return (NSString *)@"DocumentSplitView";
   
 }
-
-- (instancetype)initWithNibName:(NSNibName)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+  self = [super initWithNibName:(NSString *)nibNameOrNil bundle:nibBundleOrNil];
   if(self) {
     _outlineViewController = [[MPOutlineViewController alloc] init];
     _entryViewController = [[MPEntryViewController alloc] init];
@@ -36,6 +50,7 @@
   }
   return self;
 }
+//#endif
 
 - (void)viewWillLayout {
   self.splitView.autosaveName = @"SplitView";

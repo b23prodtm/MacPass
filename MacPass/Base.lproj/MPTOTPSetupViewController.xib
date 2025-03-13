@@ -25,7 +25,7 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="324" height="362"/>
             <subviews>
-                <gridView horizontalHuggingPriority="251" xPlacement="leading" yPlacement="center" rowAlignment="firstBaseline" rowSpacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4gl-4p-0WY">
+<!--                <gridView horizontalHuggingPriority="251" xPlacement="leading" yPlacement="center" rowAlignment="firstBaseline" rowSpacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4gl-4p-0WY">
                     <rect key="frame" x="20" y="60" width="284" height="282"/>
                     <constraints>
                         <constraint firstItem="GJN-85-eYH" firstAttribute="trailing" secondItem="Bt8-9X-91R" secondAttribute="trailing" id="9fv-9s-YwU"/>
@@ -208,7 +208,7 @@
                         </gridCell>
                         <gridCell row="0Jy-aF-Wst" column="aZO-dP-SsW" id="V48-br-lpl"/>
                     </gridCells>
-                </gridView>
+                </gridView> -->
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ppm-aD-yti">
                     <rect key="frame" x="193" y="13" width="118" height="32"/>
                     <buttonCell key="cell" type="push" title="Save Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YGn-qt-RrI">
@@ -233,7 +233,7 @@ Gw
                     </connections>
                 </button>
             </subviews>
-            <constraints>
+              <constraints>
                 <constraint firstItem="5a5-df-HAb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="3Dj-2P-0OT"/>
                 <constraint firstAttribute="trailing" secondItem="4gl-4p-0WY" secondAttribute="trailing" constant="20" symbolic="YES" id="4eg-dj-7eq"/>
                 <constraint firstItem="5a5-df-HAb" firstAttribute="bottom" secondItem="Ppm-aD-yti" secondAttribute="bottom" id="CZ9-Ia-TWV"/>

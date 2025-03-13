@@ -23,17 +23,27 @@
 #import "DDHotKey+MacPassAdditions.h"
 
 #import "MPFlagsHelper.h"
+#import "MPMacKeyCode.h"
 
 #import <Carbon/Carbon.h>
 
 @implementation DDHotKey (MPKeydata)
 
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//+ (NSData *)hotKeyDataWithKeyCode:(unsigned short)keyCode modifierFlags:(NSUInteger)flags {
+//    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] init];
+//    archiver.requiresSecureCoding = YES;
+//    [archiver encodeInt:keyCode forKey:NSStringFromSelector(@selector(keyCode))];
+//    [archiver encodeInteger:flags forKey:NSStringFromSelector(@selector(modifierFlags))];
+//    return [archiver.encodedData copy];
+//  }
+//#else
 + (NSData *)hotKeyDataWithKeyCode:(unsigned short)keyCode modifierFlags:(NSUInteger)flags {
-  NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:YES];
-  [archiver encodeInt:keyCode forKey:NSStringFromSelector(@selector(keyCode))];
-  [archiver encodeInteger:flags forKey:NSStringFromSelector(@selector(modifierFlags))];
-  return [archiver.encodedData copy];
+    MPMacKeyCode *mKeyCode = [[MPMacKeyCode alloc] initWithKeyCode:keyCode modifierFlags:flags];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:mKeyCode];
+    return [data copy];
 }
+//#endif
 
 + (NSData *)defaultHotKeyData {
   return [self hotKeyDataWithKeyCode:kVK_ANSI_M modifierFlags:kCGEventFlagMaskControl|kCGEventFlagMaskAlternate];
@@ -73,7 +83,12 @@
   }
   
   NSError *error;
-  NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+//#else
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    unarchiver.requiresSecureCoding = YES;
+//#endif
   if(error) {
     NSLog(@"Error while trying to decode DDHotKey %@", error.localizedDescription);
     return NO;

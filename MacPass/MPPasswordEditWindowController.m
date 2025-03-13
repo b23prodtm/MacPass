@@ -76,8 +76,10 @@ typedef NS_ENUM(NSUInteger, MPPasswordEditKeyError) {
   MPDocument *document = self.document;
   self.enablePassword = [document.compositeKey hasKeyOfClass:KPKPasswordKey.class];
   
-  self.passwordErrorGridRow = [self.gridView cellForView:self.passwordErrorTextField].row;
-  self.keyErrorGridRow = [self.gridView cellForView:self.keyErrorTextField].row;
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  self.passwordErrorGridRow = [self.gridView cellForView:self.passwordErrorTextField].row;
+//  self.keyErrorGridRow = [self.gridView cellForView:self.keyErrorTextField].row;
+//#endif
 }
 
 - (void)updateView {
@@ -214,9 +216,10 @@ typedef NS_ENUM(NSUInteger, MPPasswordEditKeyError) {
 
 #pragma mark UI update
 - (void)_verifyPasswordAndKey {
-  self.passwordErrorGridRow.hidden = YES;
-  self.keyErrorGridRow.hidden = YES;
-
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  self.passwordErrorGridRow.hidden = YES;
+//  self.keyErrorGridRow.hidden = YES;
+//#endif
   self.keyErrorTextField.stringValue = @"";
   self.passwordErrorTextField.stringValue = @"";
   
@@ -229,11 +232,13 @@ typedef NS_ENUM(NSUInteger, MPPasswordEditKeyError) {
   if(keyError == MPPasswordEditKeyErrorNoKey && passwordError == MPPasswordEditPasswordErrorNoPassword) {
 
     self.passwordErrorTextField.stringValue = NSLocalizedString(@"WARNING_NO_PASSWORD", "Warning if no password is set when chaning the password");
-    self.passwordErrorGridRow.hidden = NO;
-    
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//    self.passwordErrorGridRow.hidden = NO;
+//#endif
     self.keyErrorTextField.stringValue = NSLocalizedString(@"WARNING_NO_KEYFILE", "Warning tha no key file is set when chaning the password");
-    self.keyErrorGridRow.hidden = NO;
-    
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//    self.keyErrorGridRow.hidden = NO;
+//#endif
     return;
   }
     

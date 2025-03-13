@@ -738,11 +738,13 @@ NSString *const _MPTableMonoSpacedStringCellView = @"MonospacedStringCell";
     return;
   }
   __weak MPEntryViewController *welf = self;
-  self.totpUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-    NSIndexSet *columnIndex = [NSIndexSet indexSetWithIndex:[welf.entryTable columnWithIdentifier:MPEntryTableTOTPColumnIdentifier]];
-    NSIndexSet *rowIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,welf.entryTable.numberOfRows)];
-    [welf.entryTable reloadDataForRowIndexes:rowIndexes columnIndexes:columnIndex];
-  }];
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//  self.totpUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+//    NSIndexSet *columnIndex = [NSIndexSet indexSetWithIndex:[welf.entryTable columnWithIdentifier:MPEntryTableTOTPColumnIdentifier]];
+//    NSIndexSet *rowIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,welf.entryTable.numberOfRows)];
+//    [welf.entryTable reloadDataForRowIndexes:rowIndexes columnIndexes:columnIndex];
+//  }];
+//#endif
 }
 
 #pragma mark Actions

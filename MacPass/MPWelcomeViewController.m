@@ -8,6 +8,7 @@
 
 #import "MPWelcomeViewController.h"
 #import "MPConstants.h"
+#import <Cocoa/Cocoa.h>
 
 @interface MPWelcomeViewController ()
 
@@ -16,10 +17,15 @@
 @end
 
 @implementation MPWelcomeViewController
-
-- (NSNibName)nibName {
-  return @"WelcomeView";
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//- (NSNibName)nibName {
+//  return @"WelcomeView";
+//}
+//#else
+- (NSString *)nibName {
+  return (NSString *)@"WelcomeView";
 }
+//#endif
 
 - (void)viewWillAppear {
   [super viewWillAppear];

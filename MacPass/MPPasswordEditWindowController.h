@@ -47,8 +47,9 @@
 @property (strong) IBOutlet NSTextField *keyErrorTextField;
 @property (strong) IBOutlet NSButton *changePasswordButton;
 @property (strong) IBOutlet NSButton *hasPasswordSwitchButton;
-@property (strong) IBOutlet NSGridView *gridView;
-
+//#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 101300
+//@property (strong) IBOutlet NSGridView *gridView;
+//#endif
 - (IBAction)clearKey:(id)sender;
 - (IBAction)generateKey:(id)sender;
 
